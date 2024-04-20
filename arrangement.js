@@ -51,7 +51,7 @@ class Arrangement {
 				const y = (j + 0.5) * slice; // Midpoint of the slice for y
 				const dx = x - centerX; // Distance from center in X
 				const dy = y - centerY; // Distance from center in Y
-				const angle = Math.atan2(dy, dx)-PI/2; // Calculate angle in radians
+				const angle = Math.atan2(dy, dx) - PI / 2; // Calculate angle in radians
 				this.data[i][j] = [x, y, angle, standardBorderDistance];
 			}
 		}
@@ -66,24 +66,30 @@ class Arrangement {
 				percentage is the progress from original to the target, a float from 0(start) to 1(complete)
 			2. Returns: This modify itself instead of return.
 		*/
+		// console.log(checkArrangementEqual(originArrangement, targetArrangement))
+		// if (checkArrangementEqual(srArrangement, targetArrangement)){
+		// 	console.log("Arrangement Overlapped")
+		// 	 terminate()
+		// 	}
+
 		let origin = originArrangement.data
 		let target = targetArrangement.data
 		for (let i = 0; i < target.length; i++) {
 			for (let j = 0; j < target[0].length; j++) {
-				this.data[i][j][0] = map(percentage, 0, percentageCap, origin[i][j][0], target[i][j][0],true)
-				this.data[i][j][1] = map(percentage, 0, percentageCap, origin[i][j][1], target[i][j][1],true)
-				this.data[i][j][2] = map(percentage, 0, percentageCap, origin[i][j][2], target[i][j][2],true)
-				this.data[i][j][3] = map(percentage, 0, percentageCap, origin[i][j][3], target[i][j][3],true)
+				this.data[i][j][0] = map(percentage, 0, percentageCap, origin[i][j][0], target[i][j][0], true)
+				this.data[i][j][1] = map(percentage, 0, percentageCap, origin[i][j][1], target[i][j][1], true)
+				this.data[i][j][2] = map(percentage, 0, percentageCap, origin[i][j][2], target[i][j][2], true)
+				this.data[i][j][3] = map(percentage, 0, percentageCap, origin[i][j][3], target[i][j][3], true)
 			}
 		}
 	}
 
-	copy(){
+	copy() {
 		let copiedInstance = new Arrangement();
-		for (let key in this){
+		for (let key in this) {
 			if (this.hasOwnProperty(key)) {
 				copiedInstance[key] = this[key];
-			  }
+			}
 		}
 		return copiedInstance
 	}

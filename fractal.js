@@ -104,15 +104,15 @@ class Fractal {
 		let currentOnly = 0
 		let adding = 0
 		let losing = 0
-		// console.log("transitioning fractal")
-		// if (percentage >=percentageCap){console.log("Should Be terminated")}
+		// console.log(checkFractalEqual(origin,target))
+
 		for (let i = 0; i < originShapes.length; i++) {
 			let times = 0;
 			let mappedR = map(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
 			let mappedG = map(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
 			let mappedB = map(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
 			let mappedA = map(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
-			let mappedStroke = [mappedR, mappedG, mappedB, mappedA,true]
+			let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
 			let mappedStrokeWeight = map(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
 			this.settings[i].stroke=mappedStroke
 			this.settings[i].strokeWeight=mappedStrokeWeight
@@ -121,23 +121,19 @@ class Fractal {
 				for (let j = 0; j < originShapes[i].length; j++) { // the current lines
 					let mappedLine = getLineInTransition(originShapes[i][j], targetShapes[i][j], percentage)
 					this.shapes[i][j]=mappedLine
-					console.log("triggered changing current")
 				}
 				for (let j = originShapes[i].length; j < targetShapes[i].length; j++) { // the lines to be added (growing from midpoint)
 					let dissappearState = getLineToDisappearState(targetShapes[i][j]);
-					console.log("triggered adding")
 					let mappedLine = getLineInTransition(dissappearState, targetShapes[i][j], percentage)
 					this.shapes[i][j]=mappedLine
 				}
 			} else if (targetShapes[i].length < originShapes[i].length) { // and this is to delete lines;
 				losing++
 				for (let j = 0; j < targetShapes[i].length; j++) { // the current lines
-					console.log("triggered changing current")
 					let mappedLine = getLineInTransition(originShapes[i][j], targetShapes[i][j], percentage)
 					this.shapes[i][j]=mappedLine
 				}
 				for (let j = targetShapes[i].length; j < originShapes[i].length; j++) { // the lines to be added (growing from midpoint)
-					console.log("triggered losing")
 					let dissappearState = getLineToDisappearState(originShapes[i][j]);
 					// console.log(dissappearState)
 					let mappedLine = getLineInTransition(dissappearState, originShapes[i][j], percentage)
@@ -145,7 +141,6 @@ class Fractal {
 				}
 			} else { // don't need to change number;
 				for (let j = 0; j < originShapes[i].length; j++) { // the current lines
-					// console.log("triggered changing current [only]")
 					currentOnly ++
 					let mappedLine = getLineInTransition(originShapes[i][j], targetShapes[i][j], percentage)
 					this.shapes[i][j]=mappedLine

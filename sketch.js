@@ -8,7 +8,7 @@ Global Variables:
   tg: target, is the target when start to transmit
 */
 const CanvasDivision = 16;
-const percentageCap = 15000;
+const percentageCap = 100;
 let standardBorderDistance;
 let time;
 
@@ -19,9 +19,10 @@ let pfDiagonalBox;
 let pfCasual;
 let pfA;
 let pfQuestionMark;
-  //--------pf / pa ---------
+//--------pf / pa ---------
 let pas = []
 let paGridUpward;
+let paCircle;
 let paCircleCentralized;
 let paGridCentralized;
 let paRandom;
@@ -47,30 +48,31 @@ function setup() {
   pfCasual = presetFractalCasual();
   pfA = presetFractalA();
   pfQuestionMark = presetFractalQuestionMark();
-  pfs = [pfSmile,pfDiagonalBox,pfA,pfCasual,pfQuestionMark]
+  pfs = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark]
   //--------pf / pa ---------
   paGridUpward = presetArrangementUpwardGrid()
   paRandom = presetArrangementRandom()
   paGridCentralized = presetArrangementTowardsCenterGrid()
-  pas = [paGridCentralized,paRandom,paGridCentralized]
+  paCircle = presetArrangementCricle()
+  paCircleCentralized = presetArrangementCentralTowardsCricle();
+  pas = [paGridCentralized, paRandom, paCircle,paCircleCentralized,paGridCentralized]
   //------------------Presets
   srFractals = duplicate(paGridUpward, pfSmile)
   srArrangement = new Arrangement()
-  console.log(srFractals[0][0].shapes[0])
 
 }
-  /*
-  State Management:
-  [Current]
+/*
+State Management:
+[Current]
 (copy)|    \
-      |     \
-  [Origin]->[Current]->[Target]
-           (percentage)   |
-                    \     |
-                     \    |
-                      \   |
-                       [Current]
-  */
+    |     \
+[Origin]->[Current]->[Target]
+         (percentage)   |
+                  \     |
+                   \    |
+                    \   |
+                     [Current]
+*/
 function draw() {
   background("");
   show(srArrangement, srFractals)
@@ -78,37 +80,26 @@ function draw() {
 
 
   if (srIsTransmiting) {//resets after stopping transmiting
-
     srPercentage++
     srArrangement.transition(orArrangement, tgArrangement, srPercentage)//transmit the arrangement
-    for (let i=0;i<CanvasDivision;i++){
-      for (let j=0;j<CanvasDivision;j++){
-        srFractals[i][j].transition(orFractalExample,tgFractalExample,srPercentage)//transmit the fractal's shapes and settings
+    for (let i = 0; i < CanvasDivision; i++) {
+      for (let j = 0; j < CanvasDivision; j++) {
+        srFractals[i][j].transition(orFractalExample, tgFractalExample, srPercentage)//transmit the fractal's shapes and settings
       }
     }
   }
-  // console.log(srPercentage)
   if (srPercentage >= percentageCap) {// stop transmiting
-    srIsTransmiting = false
-    srPercentage = 0
-    srArrangement = tgArrangement
-    // srFractals = duplicate(srArrangement,tgFractalExample)
-    console.log("-----------------Time's Up - Transition Terminated")
-    console.log(srFractals[0][0].shapes[0])
-    orFractalExample = tgFractalExample.copy()
-    orArrangement = tgArrangement.copy()
-    srFractals=duplicate(srArrangement,tgFractalExample)
+    console.log("Time's Up")
+    terminate()
   }
 }
 
-function mousePressed(){
-  time = millis();
-  console.log("-----------------Mouse Pressed - Transition Started")
-  console.log(srFractals[0][0].shapes[0])
-  let targetArrangement = getRandomElement(pas)
-  let targetFractal = getRandomElement(pfs)
-  testTransmitArrangement(targetArrangement)
-  testTransmitFractal(targetFractal)
-  console.log("Target Arrangement:", targetArrangement)
-  console.log("Target Fractal:", targetFractal)
+function mousePressed() {
+  console.log("-Mouse Pressed")
+  if (srIsTransmiting == false) {
+    initiate()
+  } else {
+    console.log("But -  srIsTransmiting is true. Percentage:", srPercentage)
+  }
 }
+

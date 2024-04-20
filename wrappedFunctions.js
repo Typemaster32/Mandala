@@ -11,11 +11,13 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	// console.log(lineObject)
 	let [x1, y1, x2, y2, ...rest] = lineObject;
 	let centerX, centerY, radius, startAngleRad, endAngleRad, angle;
+	// if(x1-x2 <0.0001 && y1-y2<0.0001) return
 	x1 *= borderDistance
 	y1 *= borderDistance
 	x2 *= borderDistance
 	y2 *= borderDistance
 	// console.log(x1)
+
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);
 	} else if (lineObject.length === 5) { // Arc
@@ -94,73 +96,73 @@ function getLineInTransition(beginState, endState, percentage) {
 	// }
 	let transitionState = [...beginState]
 	// console.log(transitionState)
-	for (let i = 0; i < min(beginState.length, endState.length); i++) { 
-		transitionState[i] = map(percentage, 0, percentageCap, beginState[i], endState[i],true) 
+	for (let i = 0; i < min(beginState.length, endState.length); i++) {
+		transitionState[i] = map(percentage, 0, percentageCap, beginState[i], endState[i], true)
 	}
 	if (beginState.length > endState.length) {
 		if (beginState.length == 5) { //5->4
-			transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0,true)
+			transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
 		} else if (beginState.length == 6) { // 6->(7)->5 / 6->4
 			if (endState.length == 5) {//6->5
-				transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4],true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[4], 1,true)
-				transitionState.push(map(percentage, 0, percentageCap, beginState[5], 1),true)
+				transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4], true)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[4], 1, true)
+				transitionState.push(map(percentage, 0, percentageCap, beginState[5], 1), true)
 			} else {//6->4
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0,true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 0,true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 0, true)
 			}
 		} else {// 7->4 / 7->5 / 7>6
 			if (endState.length == 4) { // 7->4
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0,true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1,true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1,true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1, true)
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1, true)
 			} else if (endState.length == 5) { // 7->5
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4],true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1,true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1,true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4], true)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1, true)
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1, true)
 			} else { //7->6
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0,true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], endState[4],true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], endState[5],true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], endState[4], true)
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], endState[5], true)
 			}
 		}
 	} else if (beginState.length < endState.length) {
 		if (beginState.length == 4) { // 4->5 / 4->6 / 4->7
 			if (endState.length == 5) { // 4->5
-				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4],true))
+				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4], true))
 			} else if (endState.length == 6) { // 4->6
 				if (endState[4] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4], true))
 				if (endState[5] != 1)
 					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5]))
 			} else { //4->7
-				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4],true))
+				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4], true))
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
 				if (endState[6] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6], true))
 			}
 		} else if (beginState.length == 5) { // 5->(7)->6 / 5->7
 			if (endState.length == 6) {//5->(7)->6
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0,true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
 				if (endState[4] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4], true))
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
 			} else {//5->7
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4],true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4], true)
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
 				if (endState[6] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6],true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6], true))
 			}
 		} else {// 6->7
 			transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4])
 			transitionState[5] = map(percentage, 0, percentageCap, beginState[4], endState[5])
-			transitionState.push(map(percentage, 0, percentageCap, beginState[5], endState[6],true))
+			transitionState.push(map(percentage, 0, percentageCap, beginState[5], endState[6], true))
 
 		}
-	} 
+	}
 
 	// console.log(transitionState)
 	return transitionState
@@ -243,3 +245,63 @@ function show(arrangement, fractals) {
 	}
 }
 
+
+function checkFractalEqual(stateA, stateB) {
+	let settingsEqual = false
+	let shapesEqual = false
+	for (let i = 0; i < stateA.settings.length; i++) {
+		settingsEqual = (stateA.settings[i] == stateB.settings[i])
+		for (let j = 0; j < stateA.shapes[i]; j++) {
+			shapesEqual = true
+			let angle, strokeStart, strokeEnd;
+			for (let k = 0; k < 4; k++) {
+				if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) shapesEqual = false
+			}
+		}
+	}
+	if (!settingsEqual) console.log(stateA.settings, stateB.settings)
+	if (!shapesEqual) console.log(stateA.shapes, stateB.shapes)
+	return settingsEqual && shapesEqual
+}
+
+function checkArrangementEqual(stateA, stateB) {
+	let dataEqual = true
+	for (let i = 0; i < CanvasDivision; i++) {
+		for (let j = 0; j < CanvasDivision; j++) {
+			for (let k = 0; j < 4; j++) {
+				if (stateA.data[i][j][k] != stateB.data[i][j][k])
+					dataEqual = false
+			}
+		}
+	}
+	return dataEqual
+}
+
+
+function terminate(){
+	srIsTransmiting = false
+	srPercentage = 0
+	srArrangement = tgArrangement
+	// srFractals = duplicate(srArrangement,tgFractalExample)
+	console.log("-----------------Transition Terminated")
+	orFractalExample = tgFractalExample.copy()
+	orArrangement = tgArrangement.copy()
+	// srFractals = duplicate(srArrangement, tgFractalExample)
+  }
+
+
+  function initiate(){
+	srIsTransmiting = true
+    srPercentage = 0
+    console.log("-----------------Transition Started")
+    let targetArrangementIndex=0;
+     while(checkArrangementEqual(pas[targetArrangementIndex],srArrangement)){
+		targetArrangementIndex = getRandomElement(pas)
+	}
+    let targetFractalIndex = getRandomElement(pfs)
+    // let targetFractalIndex = 0
+    console.log("Target Arrangement:", targetArrangementIndex)
+    console.log("Target Fractal:", targetFractalIndex)
+    testTransmitArrangement(pas[targetArrangementIndex])
+    testTransmitFractal(pfs[targetFractalIndex])
+  }

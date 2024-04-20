@@ -53,13 +53,7 @@ function testTransmitArrangement(target) {
     3. copy the current Arrangement to the origin;
     */
     tgArrangement = target
-    if (srIsTransmiting == false || srPercentage == 0) {
-        srIsTransmiting = true
-        srPercentage = 0
-
-        orArrangement = srArrangement.copy()
-    }
-
+    orArrangement = srArrangement.copy()
 }
 
 function testTransmitFractal(target) {
@@ -70,14 +64,12 @@ function testTransmitFractal(target) {
     3. copy the current Fractal Example to the origin;
     */
     tgFractalExample = target
-    if (srIsTransmiting == false || srPercentage == 0) {
-        srIsTransmiting = true
-        srPercentage = 0
-        orFractalExample = srFractals[0][0].copy()
-    }
+    orFractalExample = srFractals[0][0].copy()
 }
 
 
 function getRandomElement(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+    let index = Math.floor(Math.random() * arr.length)
+    console.log(index)
+    return index;
 }
