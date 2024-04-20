@@ -70,6 +70,5 @@ function testTransmitFractal(target) {
 
 function getRandomElement(arr) {
     let index = Math.floor(Math.random() * arr.length)
-    console.log(index)
     return index;
 }

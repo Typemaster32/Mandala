@@ -264,6 +264,24 @@ function checkFractalEqual(stateA, stateB) {
 	return settingsEqual && shapesEqual
 }
 
+function checkFractalBasicEqual(stateA, stateB) {
+	let settingsEqual = false
+	let shapesEqual = false
+	for (let i = 0; i < stateA.settings.length; i++) {
+		settingsEqual = (stateA.settings[i] == stateB.settings[i])
+		for (let j = 0; j < stateA.shapes[i]; j++) {
+			shapesEqual = true
+			let angle, strokeStart, strokeEnd;
+			for (let k = 0; k < 4; k++) {
+				if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) shapesEqual = false
+			}
+		}
+	}
+	if (!settingsEqual) console.log(stateA.settings, stateB.settings)
+	if (!shapesEqual) console.log(stateA.shapes, stateB.shapes)
+	return settingsEqual && shapesEqual
+}
+
 function checkArrangementEqual(stateA, stateB) {
 	let dataEqual = true
 	for (let i = 0; i < CanvasDivision; i++) {
@@ -282,7 +300,6 @@ function terminate(){
 	srIsTransmiting = false
 	srPercentage = 0
 	srArrangement = tgArrangement
-	// srFractals = duplicate(srArrangement,tgFractalExample)
 	console.log("-----------------Transition Terminated")
 	orFractalExample = tgFractalExample.copy()
 	orArrangement = tgArrangement.copy()

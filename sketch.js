@@ -57,7 +57,7 @@ function setup() {
   paCircleCentralized = presetArrangementCentralTowardsCricle();
   pas = [paGridCentralized, paRandom, paCircle,paCircleCentralized,paGridCentralized]
   //------------------Presets
-  srFractals = duplicate(paGridUpward, pfSmile)
+  srFractals = duplicate(paGridUpward, pfQuestionMark)
   srArrangement = new Arrangement()
 
 }

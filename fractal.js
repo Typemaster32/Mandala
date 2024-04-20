@@ -92,7 +92,7 @@ class Fractal {
 		return copiedInstance
 	}
 
-	transition(origin, target, percentage) {
+	transition(origin, target, originPercentage) {
 		/* 
 		1. Make sure this.shapes.length == this.settings.length == targetShapes.length == targetSettings.length
 		2. origin is copied from current at start.
@@ -104,6 +104,10 @@ class Fractal {
 		let currentOnly = 0
 		let adding = 0
 		let losing = 0
+		let percentage
+		// let percentage = Math.sqrt(originPercentage)
+		percentage = originPercentage/percentageCap
+		percentage = 0.1
 		// console.log(checkFractalEqual(origin,target))
 
 		for (let i = 0; i < originShapes.length; i++) {
