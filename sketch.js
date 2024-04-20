@@ -8,7 +8,7 @@ Global Variables:
   tg: target, is the target when start to transmit
 */
 const CanvasDivision = 16;
-const percentageCap = 5000;
+const percentageCap = 15000;
 let standardBorderDistance;
 let time;
 
@@ -69,7 +69,7 @@ function draw() {
 
   if (srIsTransmiting) {//resets after stopping transmiting
 
-    srPercentage = millis()-time
+    srPercentage++
     srArrangement.transition(orArrangement, tgArrangement, srPercentage)//transmit the arrangement
     for (let i=0;i<CanvasDivision;i++){
       for (let j=0;j<CanvasDivision;j++){

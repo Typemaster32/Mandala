@@ -45,17 +45,6 @@ function findCircleProperties(x1, y1, x2, y2, angle) {
 }
 
 
-function keyIsPressed() {
-    if (keyCode == "Q" || keyCode == "q") {
-        console.log("Q")
-        testTransmitArrangement(paGridUpward)
-    }
-    if (keyCode == "W" || keyCode == "w") {
-        console.log("W")
-        testTransmitFractal(pfDiagonalBox)
-    }
-}
-
 function testTransmitArrangement(target) {
     /*
     This function: 
