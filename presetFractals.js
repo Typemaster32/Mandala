@@ -36,17 +36,30 @@ function presetFractalDiagonalBox() {
 }
 
 
-function presetFractalCasual() {
+function presetFractalA() {
 	let presetFractal = new Fractal();
 	presetFractal.shapes=
 	[
 		[
-			[-0.5,-0.3,-0.8,0.8],
-			[-0.4,0.4,0.8,0.8],
-			[0.3,0.5,0.8,-0.8],
-			[0.2,-0.6,-0.8,-0.8],
-			[0.1,0.7,-0.8,-0.8],
-			[0,-0.8,-0.8,0.8]
+			[-0.3,0.5,0,-0.5],
+			[0.3,0.5,0,-0.5],
+			[-0.15,0,0.15,0]
+		]
+	]
+	return presetFractal;
+}
+
+function presetFractalQuestionMark() {
+	let presetFractal = new Fractal();
+	presetFractal.shapes=
+	[
+		[
+			[0.3,-0.15,-0.3,0.15,PI],
+			[0.15,0,0.3,0.15,PI/2],
+			[0.15,0,0,0.15,PI/2],
+			[0,0.15,0,0.3],
+			[-0.1,0.5,0.1,0.5,PI],
+			[0.1,0.5,-0.1,0.5,PI],
 		]
 	]
 	return presetFractal;

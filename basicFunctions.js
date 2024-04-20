@@ -57,7 +57,6 @@ function testTransmitArrangement(target) {
         srIsTransmiting = true
         srPercentage = 0
 
-        console.log("testTransmitArrangement")
         orArrangement = srArrangement.copy()
     }
 
@@ -75,6 +74,10 @@ function testTransmitFractal(target) {
         srIsTransmiting = true
         srPercentage = 0
         orFractalExample = srFractals[0][0].copy()
-        console.log("testTransmitFractal")
     }
+}
+
+
+function getRandomElement(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
 }

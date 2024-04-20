@@ -13,9 +13,14 @@ let standardBorderDistance;
 let time;
 
 //------------------Presets
+let pfs = []
 let pfSmile;
 let pfDiagonalBox;
 let pfCasual;
+let pfA;
+let pfQuestionMark;
+  //--------pf / pa ---------
+let pas = []
 let paGridUpward;
 let paCircleCentralized;
 let paGridCentralized;
@@ -40,9 +45,14 @@ function setup() {
   pfSmile = presetFractalSmile()
   pfDiagonalBox = presetFractalDiagonalBox()
   pfCasual = presetFractalCasual();
+  pfA = presetFractalA();
+  pfQuestionMark = presetFractalQuestionMark();
+  pfs = [pfSmile,pfDiagonalBox,pfA,pfCasual,pfQuestionMark]
+  //--------pf / pa ---------
   paGridUpward = presetArrangementUpwardGrid()
   paRandom = presetArrangementRandom()
   paGridCentralized = presetArrangementTowardsCenterGrid()
+  pas = [paGridCentralized,paRandom,paGridCentralized]
   //------------------Presets
   srFractals = duplicate(paGridUpward, pfSmile)
   srArrangement = new Arrangement()
@@ -74,9 +84,6 @@ function draw() {
     for (let i=0;i<CanvasDivision;i++){
       for (let j=0;j<CanvasDivision;j++){
         srFractals[i][j].transition(orFractalExample,tgFractalExample,srPercentage)//transmit the fractal's shapes and settings
-        // console.log(srFractals[i][j])
-        // if(i==15&&j==15)
-        // console.log(srPercentage)
       }
     }
   }
@@ -86,7 +93,7 @@ function draw() {
     srPercentage = 0
     srArrangement = tgArrangement
     // srFractals = duplicate(srArrangement,tgFractalExample)
-    console.log("Terminated")
+    console.log("-----------------Time's Up - Transition Terminated")
     console.log(srFractals[0][0].shapes[0])
     orFractalExample = tgFractalExample.copy()
     orArrangement = tgArrangement.copy()
@@ -96,8 +103,12 @@ function draw() {
 
 function mousePressed(){
   time = millis();
-  console.log("Mouse")
+  console.log("-----------------Mouse Pressed - Transition Started")
   console.log(srFractals[0][0].shapes[0])
-  testTransmitArrangement(paRandom)
-  testTransmitFractal(pfDiagonalBox)
+  let targetArrangement = getRandomElement(pas)
+  let targetFractal = getRandomElement(pfs)
+  testTransmitArrangement(targetArrangement)
+  testTransmitFractal(targetFractal)
+  console.log("Target Arrangement:", targetArrangement)
+  console.log("Target Fractal:", targetFractal)
 }
