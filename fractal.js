@@ -108,6 +108,7 @@ class Fractal {
 		// let percentage = Math.sqrt(originPercentage)
 		// percentage = originPercentage/percentageCap
 		percentage = percentageCap /2
+		percentage = originPercentage
 		// let equal = checkFractalBasicEqual(this,target)
 		// console.log(equal)
 
@@ -122,6 +123,7 @@ class Fractal {
 			// this.settings[i].stroke=mappedStroke
 			// this.settings[i].strokeWeight=mappedStrokeWeight
 			// console.log("i",i)
+			indexer = map(originPercentage,0,percentageCap,originShapes[0][0][0],targetShapes[0][0][0])
 			if (targetShapes[i].length > originShapes[i].length) { // in this case we need to add lines;
 				adding++
 				for (let j = 0; j < originShapes[i].length; j++) { // the current lines

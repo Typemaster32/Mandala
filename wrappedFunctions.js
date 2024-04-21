@@ -94,79 +94,79 @@ function getLineInTransition(beginState, endState, percentage) {
 	// 		transitionState[i] = map(percentage, 0, percentageCap, 0, endState[i])
 	// 	}
 	// }
-	let transitionState = [100000,1,1,1]
-	// console.log("transitionState")
+	let transitionState = [...beginState]
+	// console.table(beginState)
 
 	for (let i = 0; i < min(beginState.length, endState.length); i++) {
-		transitionState[i] = map(percentage, 0, percentageCap, beginState[i], endState[i], true)
+		transitionState[i] = map(percentage, 0, percentageCap, beginState[i], endState[i])
 		// console.log(transitionState[i])
 	}
 	if (beginState.length > endState.length) {
 		if (beginState.length == 5) { //5->4
-			transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
+			transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0)
 		} else if (beginState.length == 6) { // 6->(7)->5 / 6->4
 			if (endState.length == 5) {//6->5
-				transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4], true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[4], 1, true)
-				transitionState.push(map(percentage, 0, percentageCap, beginState[5], 1), true)
+				transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4])
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[4], 1)
+				transitionState.push(map(percentage, 0, percentageCap, beginState[5], 1))
 			} else {//6->4
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 0, true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 0)
 			}
 		} else {// 7->4 / 7->5 / 7>6
 			if (endState.length == 4) { // 7->4
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1, true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1, true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1)
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1)
 			} else if (endState.length == 5) { // 7->5
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4], true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1, true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1, true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4])
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], 1)
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], 1)
 			} else { //7->6
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
-				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], endState[4], true)
-				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], endState[5], true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0)
+				transitionState[5] = map(percentage, 0, percentageCap, beginState[5], endState[4])
+				transitionState[6] = map(percentage, 0, percentageCap, beginState[6], endState[5])
 			}
 		}
 	} else if (beginState.length < endState.length) {
 		if (beginState.length == 4) { // 4->5 / 4->6 / 4->7
 			if (endState.length == 5) { // 4->5
-				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4], true))
+				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4]))
 			} else if (endState.length == 6) { // 4->6
 				if (endState[4] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4]))
 				if (endState[5] != 1)
 					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5]))
 			} else { //4->7
-				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4], true))
+				transitionState.push(map(percentage, 0, percentageCap, 0, endState[4]))
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5]))
 				if (endState[6] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6]))
 			}
 		} else if (beginState.length == 5) { // 5->(7)->6 / 5->7
 			if (endState.length == 6) {//5->(7)->6
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0, true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], 0)
 				if (endState[4] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[4]))
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5]))
 			} else {//5->7
-				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4], true)
+				transitionState[4] = map(percentage, 0, percentageCap, beginState[4], endState[4])
 				if (endState[5] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[5]))
 				if (endState[6] != 1)
-					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6], true))
+					transitionState.push(map(percentage, 0, percentageCap, 1, endState[6]))
 			}
 		} else {// 6->7
 			transitionState[4] = map(percentage, 0, percentageCap, 0, endState[4])
 			transitionState[5] = map(percentage, 0, percentageCap, beginState[4], endState[5])
-			transitionState.push(map(percentage, 0, percentageCap, beginState[5], endState[6], true))
+			transitionState.push(map(percentage, 0, percentageCap, beginState[5], endState[6]))
 
 		}
 	}
 
-	// console.log(transitionState)
+	
 	return transitionState
 }
 

@@ -8,7 +8,7 @@ Global Variables:
   tg: target, is the target when start to transmit
 */
 const CanvasDivision = 16;
-const percentageCap = 1000;
+const percentageCap = 20000;
 let standardBorderDistance;
 let time;
 
@@ -37,6 +37,8 @@ let orArrangement;
 let orFractalExample;
 let tgArrangement;
 let tgFractalExample;
+
+let indexer = 1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight)
@@ -76,10 +78,15 @@ State Management:
 function draw() {
   background("");
   show(srArrangement, srFractals)
-
+  text(srFractals[0][0].shapes[0][0],100,100)
+  text(srPercentage,100,120)
+  text(indexer,100,140)
+  text(indexer,100,140)
+  // text(millis(),100,140)
 
 
   if (srIsTransmiting) {//resets after stopping transmiting
+    console.log(srPercentage)
     srPercentage++
     srArrangement.transition(orArrangement, tgArrangement, srPercentage)//transmit the arrangement
     for (let i = 0; i < CanvasDivision; i++) {
@@ -87,6 +94,9 @@ function draw() {
         srFractals[i][j].transition(orFractalExample, tgFractalExample, srPercentage)//transmit the fractal's shapes and settings
       }
     }
+
+  text(orFractalExample.shapes[0][0][0],100,160)
+  text(tgFractalExample.shapes[0][0][0],100,180)
   }
   if (srPercentage >= percentageCap) {// stop transmiting
     console.log("Time's Up")
