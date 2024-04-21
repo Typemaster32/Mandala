@@ -8,7 +8,7 @@ Global Variables:
   tg: target, is the target when start to transmit
 */
 const CanvasDivision = 16;
-const percentageCap = 100;
+const percentageCap = 1000;
 let standardBorderDistance;
 let time;
 
@@ -65,7 +65,7 @@ function setup() {
 State Management:
 [Current]
 (copy)|    \
-    |     \
+      |     \
 [Origin]->[Current]->[Target]
          (percentage)   |
                   \     |

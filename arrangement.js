@@ -67,10 +67,10 @@ class Arrangement {
 			2. Returns: This modify itself instead of return.
 		*/
 		// console.log(checkArrangementEqual(originArrangement, targetArrangement))
-		// if (checkArrangementEqual(srArrangement, targetArrangement)){
-		// 	console.log("Arrangement Overlapped")
-		// 	 terminate()
-		// 	}
+		if (checkArrangementEqual(srArrangement, targetArrangement)){
+			console.log("Arrangement Overlapped")
+			 terminate()
+			}
 
 		let origin = originArrangement.data
 		let target = targetArrangement.data

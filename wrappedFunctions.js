@@ -94,10 +94,12 @@ function getLineInTransition(beginState, endState, percentage) {
 	// 		transitionState[i] = map(percentage, 0, percentageCap, 0, endState[i])
 	// 	}
 	// }
-	let transitionState = [...beginState]
-	// console.log(transitionState)
+	let transitionState = [100000,1,1,1]
+	// console.log("transitionState")
+
 	for (let i = 0; i < min(beginState.length, endState.length); i++) {
 		transitionState[i] = map(percentage, 0, percentageCap, beginState[i], endState[i], true)
+		// console.log(transitionState[i])
 	}
 	if (beginState.length > endState.length) {
 		if (beginState.length == 5) { //5->4
@@ -265,29 +267,30 @@ function checkFractalEqual(stateA, stateB) {
 }
 
 function checkFractalBasicEqual(stateA, stateB) {
-	let settingsEqual = false
-	let shapesEqual = false
-	for (let i = 0; i < stateA.settings.length; i++) {
-		settingsEqual = (stateA.settings[i] == stateB.settings[i])
-		for (let j = 0; j < stateA.shapes[i]; j++) {
-			shapesEqual = true
-			let angle, strokeStart, strokeEnd;
-			for (let k = 0; k < 4; k++) {
-				if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) shapesEqual = false
-			}
+	let shapesEqual = true
+
+	for (let i = 0; i < stateA.shapes.length; i++) {
+
+	console.table(stateA.shapes[i])
+	console.table(stateB.shapes[i])
+		for (let j = 0; j < min(stateA.shapes[i].length,stateA.shapes[i].length); j++) {
+			// for (let k = 0; k < 2; k++) {
+			// console.log(stateA.shapes[i][j][k])
+			// console.log(stateB.shapes[i][j][k])
+			// 	// if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) {shapesEqual = false}
+			// }
 		}
 	}
-	if (!settingsEqual) console.log(stateA.settings, stateB.settings)
-	if (!shapesEqual) console.log(stateA.shapes, stateB.shapes)
-	return settingsEqual && shapesEqual
+	return  shapesEqual
 }
 
-function checkArrangementEqual(stateA, stateB) {
+function checkArrangementEqual(stateA, stateB,tolerance=1) {
 	let dataEqual = true
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) {
 			for (let k = 0; j < 4; j++) {
-				if (stateA.data[i][j][k] != stateB.data[i][j][k])
+				let offset = Math.abs(stateA.data[i][j][k]-stateB.data[i][j][k])
+				if (offset>tolerance)
 					dataEqual = false
 			}
 		}
@@ -297,6 +300,8 @@ function checkArrangementEqual(stateA, stateB) {
 
 
 function terminate(){
+	// console.log("tester-terminate",srFractals[0][0].shapes[0].length)
+	// console.table(srFractals[0][0].shapes[0])
 	srIsTransmiting = false
 	srPercentage = 0
 	srArrangement = tgArrangement
@@ -308,17 +313,18 @@ function terminate(){
 
 
   function initiate(){
+	// console.log("tester-initiate",srFractals[0][0].shapes[0].length)
+	// console.table(srFractals[0][0].shapes[0])
 	srIsTransmiting = true
     srPercentage = 0
-    console.log("-----------------Transition Started")
     let targetArrangementIndex=0;
      while(checkArrangementEqual(pas[targetArrangementIndex],srArrangement)){
 		targetArrangementIndex = getRandomElement(pas)
 	}
     let targetFractalIndex = getRandomElement(pfs)
+
+    console.log("-----------------Transition Started","Target Arrangement:", targetArrangementIndex,"Target Fractal:", targetFractalIndex)
     // let targetFractalIndex = 0
-    console.log("Target Arrangement:", targetArrangementIndex)
-    console.log("Target Fractal:", targetFractalIndex)
     testTransmitArrangement(pas[targetArrangementIndex])
     testTransmitFractal(pfs[targetFractalIndex])
   }

@@ -106,20 +106,22 @@ class Fractal {
 		let losing = 0
 		let percentage
 		// let percentage = Math.sqrt(originPercentage)
-		percentage = originPercentage/percentageCap
-		percentage = 0.1
-		// console.log(checkFractalEqual(origin,target))
+		// percentage = originPercentage/percentageCap
+		percentage = percentageCap /2
+		// let equal = checkFractalBasicEqual(this,target)
+		// console.log(equal)
+
 
 		for (let i = 0; i < originShapes.length; i++) {
-			let times = 0;
-			let mappedR = map(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
-			let mappedG = map(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
-			let mappedB = map(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
-			let mappedA = map(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
-			let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
-			let mappedStrokeWeight = map(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
-			this.settings[i].stroke=mappedStroke
-			this.settings[i].strokeWeight=mappedStrokeWeight
+			// let mappedR = map(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
+			// let mappedG = map(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
+			// let mappedB = map(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
+			// let mappedA = map(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
+			// let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
+			// let mappedStrokeWeight = map(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
+			// this.settings[i].stroke=mappedStroke
+			// this.settings[i].strokeWeight=mappedStrokeWeight
+			// console.log("i",i)
 			if (targetShapes[i].length > originShapes[i].length) { // in this case we need to add lines;
 				adding++
 				for (let j = 0; j < originShapes[i].length; j++) { // the current lines
@@ -151,6 +153,7 @@ class Fractal {
 				}
 			}
 		}
+		// console.table(this.shapes[0])
 		// console.log(adding,losing,currentOnly)
 	}
 }
