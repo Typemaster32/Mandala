@@ -8,7 +8,7 @@ Global Variables:
   tg: target, is the target when start to transmit
 */
 const CanvasDivision = 16;
-const percentageCap = 20000;
+const percentageCap = 1000;
 let standardBorderDistance;
 let time;
 
@@ -78,10 +78,10 @@ State Management:
 function draw() {
   background("");
   show(srArrangement, srFractals)
-  text(srFractals[0][0].shapes[0][0],100,100)
-  text(srPercentage,100,120)
-  text(indexer,100,140)
-  text(indexer,100,140)
+  // text(srFractals[0][0].shapes[0][0],100,100)
+  // text(srPercentage,100,120)
+  // text(indexer,100,140)
+  // text(customMap(srPercentage,0,percentageCap,0.3,0.5),100,200)
   // text(millis(),100,140)
 
 
@@ -95,8 +95,8 @@ function draw() {
       }
     }
 
-  text(orFractalExample.shapes[0][0][0],100,160)
-  text(tgFractalExample.shapes[0][0][0],100,180)
+  // text(orFractalExample.shapes[0][0][0],100,160)
+  // text(tgFractalExample.shapes[0][0][0],100,180)
   }
   if (srPercentage >= percentageCap) {// stop transmiting
     console.log("Time's Up")

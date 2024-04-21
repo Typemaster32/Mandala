@@ -114,16 +114,16 @@ class Fractal {
 
 
 		for (let i = 0; i < originShapes.length; i++) {
-			// let mappedR = map(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
-			// let mappedG = map(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
-			// let mappedB = map(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
-			// let mappedA = map(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
+			// let mappedR = customMap(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
+			// let mappedG = customMap(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
+			// let mappedB = customMap(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
+			// let mappedA = customMap(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
 			// let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
-			// let mappedStrokeWeight = map(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
+			// let mappedStrokeWeight = customMap(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
 			// this.settings[i].stroke=mappedStroke
 			// this.settings[i].strokeWeight=mappedStrokeWeight
 			// console.log("i",i)
-			indexer = map(originPercentage,0,percentageCap,originShapes[0][0][0],targetShapes[0][0][0])
+			indexer = customMap(originPercentage,0,percentageCap,originShapes[0][0][0],targetShapes[0][0][0])
 			if (targetShapes[i].length > originShapes[i].length) { // in this case we need to add lines;
 				adding++
 				for (let j = 0; j < originShapes[i].length; j++) { // the current lines

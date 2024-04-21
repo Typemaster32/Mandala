@@ -72,3 +72,79 @@ function getRandomElement(arr) {
     let index = Math.floor(Math.random() * arr.length)
     return index;
 }
+
+
+function customMap(value, start1, stop1, start2, stop2) {
+    
+    return customMapWithAcceleration(value, start1, stop1, start2, stop2);
+}
+
+function precisionTwoMap(value, start1, stop1, start2, stop2) {
+    // Calculate the ratio of the input interval
+    let ratio = (value - start1) / (stop1 - start1);
+    // Apply the ratio to the output interval and round to desired precision
+    return parseFloat((start2 + (stop2 - start2) * ratio).toFixed(2));
+}
+
+function customMapWithAcceleration(value, start1, stop1, start2, stop2) {
+    // Normalize the value to a 0-1 range
+    let normalizedValue = (value - start1) / (stop1 - start1);
+    // Apply a non-linear transformation: slower at start, faster at end
+    // For example, raise the normalized value to the power of 2
+    let acceleratedValue = Math.pow(normalizedValue, 2);
+    // Map the accelerated value to the output range
+    let mappedValue = start2 + (stop2 - start2) * acceleratedValue;
+    // Round to desired precision and return
+    return parseFloat(mappedValue.toFixed(2));
+}
+
+
+function checkFractalEqual(stateA, stateB) {
+	let settingsEqual = false
+	let shapesEqual = false
+	for (let i = 0; i < stateA.settings.length; i++) {
+		settingsEqual = (stateA.settings[i] == stateB.settings[i])
+		for (let j = 0; j < stateA.shapes[i]; j++) {
+			shapesEqual = true
+			let angle, strokeStart, strokeEnd;
+			for (let k = 0; k < 4; k++) {
+				if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) shapesEqual = false
+			}
+		}
+	}
+	if (!settingsEqual) console.log(stateA.settings, stateB.settings)
+	if (!shapesEqual) console.log(stateA.shapes, stateB.shapes)
+	return settingsEqual && shapesEqual
+}
+
+function checkFractalBasicEqual(stateA, stateB) {
+	let shapesEqual = true
+
+	for (let i = 0; i < stateA.shapes.length; i++) {
+
+	console.table(stateA.shapes[i])
+	console.table(stateB.shapes[i])
+		for (let j = 0; j < min(stateA.shapes[i].length,stateA.shapes[i].length); j++) {
+			// for (let k = 0; k < 2; k++) {
+			// console.log(stateA.shapes[i][j][k])
+			// console.log(stateB.shapes[i][j][k])
+			// 	// if (stateA.shapes[i][j][k] != stateB.shapes[i][j][k]) {shapesEqual = false}
+			// }
+		}
+	}
+	return  shapesEqual
+}
+
+function checkArrangementEqual(stateA, stateB,tolerance=0.05) {
+	let dataEqual = true
+	for (let i = 0; i < CanvasDivision; i++) {
+		for (let j = 0; j < CanvasDivision; j++) {
+			for (let k = 0; j < 4; j++) {
+				let offset = Math.abs(stateA.data[i][j][k]-stateB.data[i][j][k])
+				if (offset>tolerance)
+					dataEqual = false
+			}
+		}
+	}
+	return dataEqual
+}

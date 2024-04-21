@@ -49,6 +49,19 @@ function presetFractalA() {
 	return presetFractal;
 }
 
+function presetFractalB() {
+	let presetFractal = new Fractal();
+	presetFractal.shapes=
+	[
+		[
+			[-0.3,0.5,0,-0.5],
+			[0.3,0.5,0,-0.5],
+			[-0.15,0,0.15,0]
+		]
+	]
+	return presetFractal;
+}
+
 function presetFractalQuestionMark() {
 	let presetFractal = new Fractal();
 	presetFractal.shapes=
