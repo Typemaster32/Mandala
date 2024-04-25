@@ -18,6 +18,10 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	y2 *= borderDistance
 	// console.log(x1)
 
+	if (Math.abs(x1-x2)<=0.01 && Math.abs(y1-y2)<=0.01){
+		return
+	}
+
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);
 	} else if (lineObject.length === 5) { // Arc
@@ -290,6 +294,7 @@ function terminate(){
   }
 
 
+<<<<<<< Updated upstream
   function initiate(){
 	srIsTransmiting = true
     srPercentage = 0
@@ -305,3 +310,50 @@ function terminate(){
     testTransmitArrangement(pas[targetArrangementIndex])
     testTransmitFractal(pfs[targetFractalIndex])
   }
+=======
+  function initiate(color = null) {
+    console.log("[initiate]");
+    srIsTransmiting = true;
+    srPercentage = 0;
+    let targetArrangementIndex = 0;
+
+    while (checkArrangementEqual(pas[targetArrangementIndex], srArrangement)) {
+        targetArrangementIndex = getRandomElement(pas);
+    }
+    let targetFractalIndex = getRandomElement(pfs);
+
+    let targetExampleFractal = pfs[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
+    if (color !== null) {
+        console.log("setColor");
+        targetExampleFractal.updateColor(...color);  // Ensure color is an array [r, g, b]
+    }
+
+    console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
+    testTransmitArrangement(pas[targetArrangementIndex]);
+    testTransmitFractal(targetExampleFractal);
+    console.log(targetExampleFractal.settings[0].stroke);
+}
+
+
+  function setColor(exampleFractal,color){
+	/*
+	 This is a easy version of changing color, that changes all.
+	 input "color" should be [r,g,b]
+	 */
+	console.log("setColor")
+	let changedFractal = exampleFractal.copy()
+	for (let i=0;i<changedFractal.settings.length;i++){
+		changedFractal.settings[i][0]=color[0]
+		changedFractal.settings[i][1]=color[1]
+		changedFractal.settings[i][2]=color[2]
+	}
+	return changedFractal
+  }
+
+  function terminate() {
+    console.log("[terminate]");
+    srIsTransmiting = false;  // Stop any transitions
+    srPercentage = 0;         // Reset the transmission percentage or keep it at the last value to freeze the view
+    // Additional cleanup actions can be placed here if necessary
+}
+>>>>>>> Stashed changes
