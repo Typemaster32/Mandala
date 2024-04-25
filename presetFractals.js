@@ -93,3 +93,58 @@ function presetFractalCasual() {
 	]
 	return presetFractal;
 }
+
+
+function presetFractalQuadrupleRhombus(){
+	let presetFractal = new Fractal();
+	presetFractal.shapes=
+	[
+		[
+			[0,-0.5,0.5,0,3,10],
+			[0,-0.5,-0.5,0,3,10],
+			[0,0.5,0.5,0,3,10],
+			[0,0.5,-0.5,0,3,10],/* layer1: 0.5 */
+			[0,-0.3,0.3,0,2,6],
+			[0,-0.3,-0.3,0,2,6],
+			[0,0.3,0.3,0,2,6],
+			[0,0.3,-0.3,0,2,6],/* layer2: 0.3 */
+			[0,-0.3,0.2,0,1,4],
+			[0,-0.3,-0.2,0,1,4],
+			[0,0.2,0.2,0,1,4],
+			[0,0.2,-0.2,0,1,4],/* layer3: 0.2 top remaining */
+			[0,-0.3,0.1,0,1,2],
+			[0,-0.3,-0.1,0,1,2],
+			[0,0.2,0.1,0,1,2],
+			[0,0.2,-0.1,0,1,2],/* layer1: 0.1 top & buttom remaining */
+		]
+	]
+	return presetFractal;
+
+}
+
+function presetFractalSimpleRhombus(){
+	let presetFractal = new Fractal();
+	presetFractal.shapes=
+	[
+		[
+			[0,-0.5,0.5,0,],
+			[0,-0.5,-0.5,0,],
+			[0,0.5,0.5,0,],
+			[0,0.5,-0.5,0,],/* layer1: 0.5 */
+			[0,-0.3,0.3,0,],
+			[0,-0.3,-0.3,0,],
+			[0,0.3,0.3,0,],
+			[0,0.3,-0.3,0,],/* layer2: 0.3 */
+			[0,-0.3,0.2,0,],
+			[0,-0.3,-0.2,0,],
+			[0,0.2,0.2,0,],
+			[0,0.2,-0.2,0,],/* layer3: 0.2 top remaining */
+			[0,-0.3,0.1,0,],
+			[0,-0.3,-0.1,0,],
+			[0,0.2,0.1,0,],
+			[0,0.2,-0.1,0,],/* layer1: 0.1 top & buttom remaining */
+		]
+	]
+	return presetFractal;
+
+}

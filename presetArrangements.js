@@ -47,14 +47,17 @@ function presetArrangementRandom(){
 function presetArrangementCricle(){
 	let unitAngle = PI*2 / CanvasDivision
 	let diagonal = Math.sqrt(width*width+height*height)
-	let unitDistance = diagonal / 2;
+	let unitDistance = diagonal / CanvasDivision;
 	let presetArrangement = new Arrangement();
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
-			let xoff = Math.sin(unitAngle*j)*unitDistance*i
-			let yoff = Math.sin(unitAngle*j)*unitDistance
+			let xoff = Math.cos(unitAngle*j)*unitDistance*i
+			let yoff = Math.sin(unitAngle*j)*unitDistance*i
 			presetArrangement.data[i][j][0]=width/2+xoff;
 			presetArrangement.data[i][j][1]=height/2+yoff;
+			presetArrangement.data[i][j][2]=unitAngle*j + PI /2;
+			presetArrangement.data[i][j][3]=0.4*unitDistance*i;
+			// 0.4 = 1 *  math.sqrt(2 * (1 - math.cos(theta)))
 			
 		}
 	}

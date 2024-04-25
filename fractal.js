@@ -34,14 +34,14 @@ class Fractal {
 
 
 	*/
-	constructor(x, y,angle, borderDistance) {
+	constructor(x, y,angle, borderDistance, r=0, g=0, b=0) {
 		this.center = createVector(x, y)
 		this.angle = angle
 		this.d = borderDistance
 		this.settings = [
 			{
-				stroke: [0, 0, 0, percentageCap],
-				strokeWeight: 1,
+				stroke: [r, g, b, 255],
+				strokeWeight: 2,
 			},
 			/*
 			{
@@ -72,18 +72,28 @@ class Fractal {
 		/*
 		Make sure this.shapes.length == this.settings.length
 		*/
-		push();
-		for (let i = 0; i < this.shapes.length; i++) {
-			translate(this.center.x, this.center.y)
-			rotate(this.angle)
-			strokeWeight(this.settings[i].strokeWeight)
-			stroke(this.settings[i].stroke[0],this.settings[i].stroke[1],this.settings[i].stroke[2],this.settings[i].stroke[3])
-			for (let j = 0; j < this.shapes[i].length; j++) {
-				drawLine(this.shapes[i][j],this.d)
-			}
-		}
-		pop();
+        push();
+        translate(this.center.x, this.center.y);
+        rotate(this.angle);
+        for (let i = 0; i < this.shapes.length; i++) {
+            strokeWeight(this.settings[i].strokeWeight);
+            // Dynamically use the updated stroke color
+            stroke(this.settings[i].stroke[0], this.settings[i].stroke[1], this.settings[i].stroke[2], this.settings[i].stroke[3]);
+            for (let j = 0; j < this.shapes[i].length; j++) {
+                drawLine(this.shapes[i][j], this.d);
+            }
+        }
+        pop();
 	}
+
+
+    updateColor(r, g, b) {
+        for (let setting of this.settings) {
+            setting.stroke[0] = r;
+            setting.stroke[1] = g;
+            setting.stroke[2] = b;
+        }
+    }
 
 	copy(x=0,y=0,angle=0,borderDistance=1){
 		let copiedInstance = new Fractal(x,y,angle,borderDistance)
@@ -119,10 +129,10 @@ class Fractal {
 			// let mappedB = customMap(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
 			// let mappedA = customMap(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
 			// let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
-			// let mappedStrokeWeight = customMap(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
+			// // let mappedStrokeWeight = customMap(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
 			// this.settings[i].stroke=mappedStroke
-			// this.settings[i].strokeWeight=mappedStrokeWeight
-			// console.log("i",i)
+			// // this.settings[i].strokeWeight=mappedStrokeWeight
+			// console.log("mappedStroke",mappedStroke)
 			indexer = customMap(originPercentage,0,percentageCap,originShapes[0][0][0],targetShapes[0][0][0])
 			if (targetShapes[i].length > originShapes[i].length) { // in this case we need to add lines;
 				adding++

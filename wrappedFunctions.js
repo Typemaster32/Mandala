@@ -252,8 +252,10 @@ function show(arrangement, fractals) {
 
 
 function terminate(){
-	// console.log("tester-terminate",srFractals[0][0].shapes[0].length)
-	// console.table(srFractals[0][0].shapes[0])
+	/*
+	 "terminate" stands for stopping naturally or manually, corresponding to different situations:
+	 	1. naturally (Arrangement Overlapped)
+	 */
 	srIsTransmiting = false
 	srPercentage = 0
 	srArrangement = tgArrangement
@@ -264,19 +266,44 @@ function terminate(){
   }
 
 
-  function initiate(){
-	// console.log("tester-initiate",srFractals[0][0].shapes[0].length)
-	// console.table(srFractals[0][0].shapes[0])
-	srIsTransmiting = true
-    srPercentage = 0
-    let targetArrangementIndex=0;
-     while(checkArrangementEqual(pas[targetArrangementIndex],srArrangement)){
-		targetArrangementIndex = getRandomElement(pas)
-	}
-    let targetFractalIndex = getRandomElement(pfs)
+  function initiate(color = null) {
+    console.log("[initiate]");
+    srIsTransmiting = true;
+    srPercentage = 0;
+    let targetArrangementIndex = 0;
 
-    console.log("-----------------Transition Started","Target Arrangement:", targetArrangementIndex,"Target Fractal:", targetFractalIndex)
-    // let targetFractalIndex = 0
-    testTransmitArrangement(pas[targetArrangementIndex])
-    testTransmitFractal(pfs[targetFractalIndex])
-  }
+    while (checkArrangementEqual(pas[targetArrangementIndex], srArrangement)) {
+        targetArrangementIndex = getRandomElement(pas);
+    }
+    let targetFractalIndex = getRandomElement(pfs);
+
+    let targetExampleFractal = pfs[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
+    if (color !== null) {
+        console.log("setColor");
+        targetExampleFractal.updateColor(...color);  // Ensure color is an array [r, g, b]
+    }
+
+    console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
+    testTransmitArrangement(pas[targetArrangementIndex]);
+    testTransmitFractal(targetExampleFractal);
+    console.log(targetExampleFractal.settings[0].stroke);
+}
+
+
+function setColor(exampleFractal, color) {
+    console.log("setColor");
+    let changedFractal = exampleFractal.copy();
+    for (let setting of changedFractal.settings) {
+        setting.stroke[0] = color[0]; // Red
+        setting.stroke[1] = color[1]; // Green
+        setting.stroke[2] = color[2]; // Blue
+    }
+    return changedFractal;
+}
+
+  function terminate() {
+    console.log("[terminate]");
+    srIsTransmiting = false;  // Stop any transitions
+    srPercentage = 0;         // Reset the transmission percentage or keep it at the last value to freeze the view
+    // Additional cleanup actions can be placed here if necessary
+}

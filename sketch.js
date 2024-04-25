@@ -18,6 +18,7 @@ let pfSmile;
 let pfDiagonalBox;
 let pfCasual;
 let pfA;
+let pfRhombus;
 let pfQuestionMark;
 //--------pf / pa ---------
 let pas = []
@@ -40,6 +41,15 @@ let tgFractalExample;
 
 let indexer = 1;
 
+//------------------SoundClassifier
+let sound;
+let label;
+
+function preload() {
+  sound = ml5.soundClassifier('https://teachablemachine.withgoogle.com/models/6mFq7qMMv/model.json');
+}
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight)
   standardBorderDistance = max(width, height) / (CanvasDivision * 2)
@@ -49,8 +59,9 @@ function setup() {
   pfDiagonalBox = presetFractalDiagonalBox()
   pfCasual = presetFractalCasual();
   pfA = presetFractalA();
+  pfRhombus = presetFractalSimpleRhombus();
   pfQuestionMark = presetFractalQuestionMark();
-  pfs = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark]
+  pfs = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark,pfRhombus]
   //--------pf / pa ---------
   paGridUpward = presetArrangementUpwardGrid()
   paRandom = presetArrangementRandom()
@@ -59,10 +70,68 @@ function setup() {
   paCircleCentralized = presetArrangementCentralTowardsCricle();
   pas = [paGridCentralized, paRandom, paCircle,paCircleCentralized,paGridCentralized]
   //------------------Presets
-  srFractals = duplicate(paGridUpward, pfQuestionMark)
+  srFractals = duplicate(paGridUpward, pfRhombus)
   srArrangement = new Arrangement()
-
+  srArrangement = paCircle.copy()
+  //classifyAudio
+  classifyAudio();
 }
+
+function classifyAudio() {
+  sound.classify(gotResults);
+}
+
+function gotResults(error, results) {
+  if (error) {
+      console.log(error);
+      return;
+  }
+
+  let label = results[0].label;
+  let confidence = results[0].confidence * 100; // confidence as percentage
+  console.log("[label]", label, "[confidence]", confidence);
+
+  if (confidence > 50) {
+      if (label === "Shuffle" && !srIsTransmiting) {
+          initiate();
+      } else if (label === "Stop" && srIsTransmiting) {
+          terminate();
+      } else if (["Red", "Green", "Blue"].includes(label)) {
+          let color = [0, 0, 0];
+          switch (label) {
+              case "Red":
+                  color = [255, 0, 0];
+                  break;
+              case "Green":
+                  color = [0, 255, 0];
+                  break;
+              case "Blue":
+                  color = [0, 0, 255];
+                  break;
+          }
+
+          if (srIsTransmiting) {
+              // Update color of all currently displaying fractals
+              updateFractalsColor(color);
+          } else {
+              // Start a new fractal transmission with the specified color
+              initiate(color);
+          }
+      }
+  }
+}
+
+function updateFractalsColor(color) {
+  // This function will loop through all fractals and update their color.
+  for (let row of srFractals) {
+      for (let fractal of row) {
+          fractal.updateColor(...color);
+      }
+  }
+}
+
+
+
 /*
 State Management:
 [Current]
@@ -86,7 +155,7 @@ function draw() {
 
 
   if (srIsTransmiting) {//resets after stopping transmiting
-    console.log(srPercentage)
+    // console.log(srPercentage)
     srPercentage++
     srArrangement.transition(orArrangement, tgArrangement, srPercentage)//transmit the arrangement
     for (let i = 0; i < CanvasDivision; i++) {
@@ -104,12 +173,12 @@ function draw() {
   }
 }
 
-function mousePressed() {
-  console.log("-Mouse Pressed")
-  if (srIsTransmiting == false) {
-    initiate()
-  } else {
-    console.log("But -  srIsTransmiting is true. Percentage:", srPercentage)
-  }
-}
+// function mousePressed() {
+//   console.log("-Mouse Pressed")
+//   if (srIsTransmiting == false) {
+//     initiate()
+//   } else {
+//     console.log("But -  srIsTransmiting is true. Percentage:", srPercentage)
+//   }
+// }
 
