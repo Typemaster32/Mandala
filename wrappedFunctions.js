@@ -258,7 +258,7 @@ function terminate(){
 	 */
 	srIsTransmiting = false
 	srPercentage = 0
-	srArrangement = tgArrangement
+	//srArrangement = tgArrangement
 	console.log("-----------------Transition Terminated")
 	orFractalExample = tgFractalExample.copy()
 	orArrangement = tgArrangement.copy()
@@ -299,11 +299,4 @@ function setColor(exampleFractal, color) {
         setting.stroke[2] = color[2]; // Blue
     }
     return changedFractal;
-}
-
-  function terminate() {
-    console.log("[terminate]");
-    srIsTransmiting = false;  // Stop any transitions
-    srPercentage = 0;         // Reset the transmission percentage or keep it at the last value to freeze the view
-    // Additional cleanup actions can be placed here if necessary
 }
