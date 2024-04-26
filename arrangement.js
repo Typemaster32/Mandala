@@ -40,6 +40,7 @@ class Arrangement {
 		* +-----------------------------------+
 		This layout is necessary for the rotating.
 		*/
+		this.name="default"
 		this.data = [];
 		const centerX = width / 2;
 		const centerY = height / 2;// Center of the canvas

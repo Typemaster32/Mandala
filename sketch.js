@@ -12,10 +12,17 @@ const percentageCap = 1000;
 let standardBorderDistance;
 let time;
 
-//------------------Presets
+//------------------Presets--------------------------
 let pfsClassical = []
 let pfsSpecial = []
-let pfRhombus;// default
+let pfTest;
+let pfMoon;
+let pfArrowTriangle;
+let pfQuadrupleCircle;
+let pfStrokeWeightRhombus;
+let pfsimpleRhombus;
+let pfSimpleRhombus;// default
+
 //--- Classical / Special
 let pfSmile;
 let pfDiagonalBox;
@@ -42,7 +49,7 @@ let paSpiralOverlappingCricle;
 //--- Circle / Random
 let paRandom;
 
-//------------------Presets
+//------------------Presets--------------------------
 
 let srPercentage = 0;
 let srIsTransmiting = false;
@@ -70,15 +77,20 @@ function setup() {
   createCanvas(windowWidth, windowHeight)
   standardBorderDistance = max(width, height) / (CanvasDivision * 2)
   frameRate(60)
-  //------------------Presets
-  pfRhombus = presetFractalSimpleRhombus();// default
+  //------------------Presets--------------------------
+  pfTest = presetFractalTest();
+  pfMoon = presetFractalMoon();
+  pfArrowTriangle = presetFractalArrowTriangle();
+  pfQuadrupleCircle = presetFractalQuadrupleCircle();
+  pfStrokeWeightRhombus = presetFractalStrokeWeightRhombus();
+  pfSimpleRhombus = presetFractalSimpleRhombus();// default
   //--- Classical / Special
   pfSmile = presetFractalSmile()
   pfDiagonalBox = presetFractalDiagonalBox()
   pfCasual = presetFractalCasual();
   pfA = presetFractalA();
   pfQuestionMark = presetFractalQuestionMark();
-  pfsClassical = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark,pfRhombus]
+  pfsClassical = [pfMoon, pfArrowTriangle, pfQuadrupleCircle, pfSimpleRhombus,]
   pfsSpecial = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark]
   //--------pf / pa ---------
   paTest = presetArrangementTest();
@@ -96,13 +108,13 @@ function setup() {
   paSpiralOverlappingCricle = presetArrangementSpiralOverlappingCricle();
   //--- Circle / Random
   paRandom = presetArrangementRandom()
-  pasClassical = [paTowardsCenterGrid, paRandom, paStandardCircle,paTest,paTowardsCenterGrid,paSizedCircle]
+  pasClassical = [paChessboardGrid, paFulfillGrid, paLooseDiagonalFrameGrid, paDenseDiagonalFrameGrid, paUpwardGrid, paTowardsCenterGrid, paStandardCircle, paSizedCircle, paSpiralSpanCricle, paSpiralClusterCricle, paSpiralOverlappingCricle]
   pasSpecial = [paRandom]
-  //------------------Presets
-  srFractals = duplicate(paUpwardGrid, pfRhombus)
+  //------------------Presets--------------------------
+  srFractals = duplicate(paUpwardGrid, pfTest)
   srArrangement = new Arrangement()
   // srArrangement = paSizedCircle.copy()
-  srArrangement = paTest.copy()
+  srArrangement = paFulfillGrid.copy()
 }
 
 
@@ -112,50 +124,50 @@ function classifyAudio() {
 
 function gotResults(error, results) {
   if (error) {
-      console.log(error);
-      return;
+    console.log(error);
+    return;
   }
 
   let label = results[0].label;
   let confidence = results[0].confidence * 100; // confidence as percentage
   console.log("[label]", label, "[confidence]", confidence);
 
-  if (confidence > 99) {
-      if (label === "Shuffle" && !srIsTransmiting) {
-          initiate();
-      } else if (label === "Stop" && srIsTransmiting) {
-          terminate();
-      } else if (["Red", "Green", "Blue"].includes(label)) {
-          let color = [0, 0, 0];
-          switch (label) {
-              case "Red":
-                  color = [255, 0, 0];
-                  break;
-              case "Green":
-                  color = [0, 255, 0];
-                  break;
-              case "Blue":
-                  color = [0, 0, 255];
-                  break;
-          }
-
-          if (srIsTransmiting) {
-              // Update color of all currently displaying fractals
-              updateFractalsColor(color);
-          } else {
-              // Start a new fractal transmission with the specified color
-              initiate(color);
-          }
+  if (confidence > 100) {
+    if (label === "Shuffle" && !srIsTransmiting) {
+      initiate();
+    } else if (label === "Stop" && srIsTransmiting) {
+      terminate();
+    } else if (["Red", "Green", "Blue"].includes(label)) {
+      let color = [0, 0, 0];
+      switch (label) {
+        case "Red":
+          color = [255, 0, 0];
+          break;
+        case "Green":
+          color = [0, 255, 0];
+          break;
+        case "Blue":
+          color = [0, 0, 255];
+          break;
       }
+
+      if (srIsTransmiting) {
+        // Update color of all currently displaying fractals
+        updateFractalsColor(color);
+      } else {
+        // Start a new fractal transmission with the specified color
+        initiate(color);
+      }
+    }
   }
 }
 
 function updateFractalsColor(color) {
   // This function will loop through all fractals and update their color.
   for (let row of srFractals) {
-      for (let fractal of row) {
-          fractal.updateColor(...color);
-      }
+    for (let fractal of row) {
+      fractal.updateColor(...color);
+    }
   }
 }
 
@@ -193,8 +205,8 @@ function draw() {
       }
     }
 
-  // text(orFractalExample.shapes[0][0][0],100,160)
-  // text(tgFractalExample.shapes[0][0][0],100,180)
+    // text(orFractalExample.shapes[0][0][0],100,160)
+    // text(tgFractalExample.shapes[0][0][0],100,180)
   }
   if (srPercentage >= percentageCap) {// stop transmiting
     console.log("Time's Up")
@@ -202,12 +214,12 @@ function draw() {
   }
 }
 
-// function mousePressed() {
-//   console.log("-Mouse Pressed")
-//   if (srIsTransmiting == false) {
-//     initiate()
-//   } else {
-//     console.log("But -  srIsTransmiting is true. Percentage:", srPercentage)
-//   }
-// }
+function mousePressed() {
+  console.log("-Mouse Pressed")
+  if (srIsTransmiting == false) {
+    initiate()
+  } else {
+    console.log("But -  srIsTransmiting is true. Percentage:", srPercentage)
+  }
+}
 

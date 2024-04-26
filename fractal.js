@@ -34,10 +34,11 @@ class Fractal {
 
 
 	*/
-	constructor(x, y,angle, borderDistance, r=0, g=0, b=0) {
+	constructor(x, y,angle, borderDistance,name="default", r=0, g=0, b=0,) {
 		this.center = createVector(x, y)
 		this.angle = angle
 		this.d = borderDistance
+		this.name = name
 		this.settings = [
 			{
 				stroke: [r, g, b, 255],
@@ -99,6 +100,7 @@ class Fractal {
 		let copiedInstance = new Fractal(x,y,angle,borderDistance)
 		copiedInstance.settings = this.settings
 		copiedInstance.shapes = this.shapes
+		copiedInstance.name = this.name
 		return copiedInstance
 	}
 
@@ -118,20 +120,20 @@ class Fractal {
 		// let percentage = Math.sqrt(originPercentage)
 		// percentage = originPercentage/percentageCap
 		percentage = percentageCap /2
-		percentage = originPercentage
+		percentage = originPercentage*3
 		// let equal = checkFractalBasicEqual(this,target)
 		// console.log(equal)
 
 
 		for (let i = 0; i < originShapes.length; i++) {
-			// let mappedR = customMap(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
-			// let mappedG = customMap(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
-			// let mappedB = customMap(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
-			// let mappedA = customMap(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
-			// let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
-			// // let mappedStrokeWeight = customMap(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
-			// this.settings[i].stroke=mappedStroke
-			// // this.settings[i].strokeWeight=mappedStrokeWeight
+			let mappedR = customMap(percentage, 0, percentageCap, originSettings[i].stroke[0], targetSettings[i].stroke[0],true)
+			let mappedG = customMap(percentage, 0, percentageCap, originSettings[i].stroke[1], targetSettings[i].stroke[1],true)
+			let mappedB = customMap(percentage, 0, percentageCap, originSettings[i].stroke[2], targetSettings[i].stroke[2],true)
+			let mappedA = customMap(percentage, 0, percentageCap, originSettings[i].stroke[3], targetSettings[i].stroke[3],true)
+			let mappedStroke = [mappedR, mappedG, mappedB, mappedA]
+			// let mappedStrokeWeight = customMap(percentage, 0, percentageCap, originSettings[i].strokeWeight, targetSettings[i].strokeWeight)
+			this.settings[i].stroke=mappedStroke
+			// this.settings[i].strokeWeight=mappedStrokeWeight
 			// console.log("mappedStroke",mappedStroke)
 			indexer = customMap(originPercentage,0,percentageCap,originShapes[0][0][0],targetShapes[0][0][0])
 			if (targetShapes[i].length > originShapes[i].length) { // in this case we need to add lines;
@@ -151,10 +153,10 @@ class Fractal {
 					let mappedLine = getLineInTransition(originShapes[i][j], targetShapes[i][j], percentage)
 					this.shapes[i][j]=mappedLine
 				}
-				for (let j = targetShapes[i].length; j < originShapes[i].length; j++) { // the lines to be added (growing from midpoint)
+				for (let j = targetShapes[i].length; j < originShapes[i].length; j++) { // the lines to be deleted (growing from midpoint)
 					let dissappearState = getLineToDisappearState(originShapes[i][j]);
 					// console.log(dissappearState)
-					let mappedLine = getLineInTransition(dissappearState, originShapes[i][j], percentage)
+					let mappedLine = getLineInTransition(originShapes[i][j],dissappearState, percentage)
 					this.shapes[i][j]=mappedLine
 				}
 			} else { // don't need to change number;

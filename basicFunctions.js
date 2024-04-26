@@ -135,7 +135,7 @@ function checkFractalBasicEqual(stateA, stateB) {
 	return  shapesEqual
 }
 
-function checkArrangementEqual(stateA, stateB,tolerance=0.05) {
+function checkArrangementEqual(stateA, stateB,tolerance=0.04) {
 	let dataEqual = true
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) {

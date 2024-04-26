@@ -17,7 +17,8 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	x2 *= borderDistance
 	y2 *= borderDistance
 	// console.log(x1)
-	if(Math.abs(x1-x2)<=0.01 &&Math.abs(y1-y2)<=0.01)return
+	let toleranceDrawline=0.001
+	if(Math.abs(x1-x2)<=toleranceDrawline &&Math.abs(y1-y2)<=toleranceDrawline)return
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);
 	} else if (lineObject.length === 5) { // Arc
@@ -256,13 +257,18 @@ function terminate(){
 	 "terminate" stands for stopping naturally or manually, corresponding to different situations:
 	 	1. naturally (Arrangement Overlapped)
 	 */
+
+		 let filename = tgArrangement.name + "---" + tgFractalExample.name
+		 saveCanvas(filename,'png')
+
 	srIsTransmiting = false
 	srPercentage = 0
 	srArrangement = tgArrangement
 	console.log("-----------------Transition Terminated")
 	orFractalExample = tgFractalExample.copy()
 	orArrangement = tgArrangement.copy()
-	// srFractals = duplicate(srArrangement, tgFractalExample)
+	// srFractals = duplicate(srArrangement, tgFractalExample)	
+
   }
 
 
@@ -286,7 +292,8 @@ function terminate(){
     console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
     testTransmitArrangement(pasClassical[targetArrangementIndex]);
     testTransmitFractal(targetExampleFractal);
-    console.log(targetExampleFractal.settings[0].stroke);
+    // console.log(targetExampleFractal.settings[0].stroke);
+
 }
 
 
@@ -299,11 +306,4 @@ function setColor(exampleFractal, color) {
         setting.stroke[2] = color[2]; // Blue
     }
     return changedFractal;
-}
-
-  function terminate() {
-    console.log("[terminate]");
-    srIsTransmiting = false;  // Stop any transitions
-    srPercentage = 0;         // Reset the transmission percentage or keep it at the last value to freeze the view
-    // Additional cleanup actions can be placed here if necessary
 }
