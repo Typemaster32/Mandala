@@ -17,7 +17,7 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	x2 *= borderDistance
 	y2 *= borderDistance
 	// console.log(x1)
-
+	if(Math.abs(x1-x2)<=0.01 &&Math.abs(y1-y2)<=0.01)return
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);
 	} else if (lineObject.length === 5) { // Arc
@@ -272,19 +272,19 @@ function terminate(){
     srPercentage = 0;
     let targetArrangementIndex = 0;
 
-    while (checkArrangementEqual(pas[targetArrangementIndex], srArrangement)) {
-        targetArrangementIndex = getRandomElement(pas);
+    while (checkArrangementEqual(pasClassical[targetArrangementIndex], srArrangement)) {
+        targetArrangementIndex = getRandomElement(pasClassical);
     }
-    let targetFractalIndex = getRandomElement(pfs);
+    let targetFractalIndex = getRandomElement(pfsClassical);
 
-    let targetExampleFractal = pfs[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
+    let targetExampleFractal = pfsClassical[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
     if (color !== null) {
         console.log("setColor");
         targetExampleFractal.updateColor(...color);  // Ensure color is an array [r, g, b]
     }
 
     console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
-    testTransmitArrangement(pas[targetArrangementIndex]);
+    testTransmitArrangement(pasClassical[targetArrangementIndex]);
     testTransmitFractal(targetExampleFractal);
     console.log(targetExampleFractal.settings[0].stroke);
 }

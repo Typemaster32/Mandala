@@ -13,20 +13,35 @@ let standardBorderDistance;
 let time;
 
 //------------------Presets
-let pfs = []
+let pfsClassical = []
+let pfsSpecial = []
+let pfRhombus;// default
+//--- Classical / Special
 let pfSmile;
 let pfDiagonalBox;
 let pfCasual;
 let pfA;
-let pfRhombus;
 let pfQuestionMark;
 //--------pf / pa ---------
-let pas = []
-let paGridUpward;
-let paCircle;
-let paCircleCentralized;
-let paGridCentralized;
+let pasClassical = []
+let pasSpecial = []
+let paTest;
+let paChessboardGrid;
+let paFulfillGrid;
+let paLooseDiagonalFrameGrid;
+let paDenseDiagonalFrameGrid;
+let paUpwardGrid;
+let paTowardsCenterGrid;
+//--- Grid / Circle
+let paStandardCircle;
+let paSizedCircle; // default
+let paSpiralSpanCricle;
+let paSpiralClusterCricle;
+let paSpiralOverlappingCricle;
+
+//--- Circle / Random
 let paRandom;
+
 //------------------Presets
 
 let srPercentage = 0;
@@ -45,6 +60,7 @@ let indexer = 1;
 let sound;
 let label;
 
+
 function preload() {
   sound = ml5.soundClassifier('https://teachablemachine.withgoogle.com/models/6mFq7qMMv/model.json');
 }
@@ -55,27 +71,40 @@ function setup() {
   standardBorderDistance = max(width, height) / (CanvasDivision * 2)
   frameRate(60)
   //------------------Presets
+  pfRhombus = presetFractalSimpleRhombus();// default
+  //--- Classical / Special
   pfSmile = presetFractalSmile()
   pfDiagonalBox = presetFractalDiagonalBox()
   pfCasual = presetFractalCasual();
   pfA = presetFractalA();
-  pfRhombus = presetFractalSimpleRhombus();
   pfQuestionMark = presetFractalQuestionMark();
-  pfs = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark,pfRhombus]
+  pfsClassical = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark,pfRhombus]
+  pfsSpecial = [pfSmile, pfDiagonalBox, pfA, pfCasual, pfQuestionMark]
   //--------pf / pa ---------
-  paGridUpward = presetArrangementUpwardGrid()
+  paTest = presetArrangementTest();
+  paChessboardGrid = presetArrangementChessboardGrid();
+  paFulfillGrid = presetArrangementFulfillGrid();
+  paLooseDiagonalFrameGrid = presetArrangementLooseDiagonalFrameGrid();
+  paDenseDiagonalFrameGrid = presetArrangementDenseDiagonalFrameGrid();
+  paUpwardGrid = presetArrangementUpwardGrid()
+  paTowardsCenterGrid = presetArrangementTowardsCenterGrid()
+  //--- Grid / Circle
+  paStandardCircle = presetArrangementStandardCricle()
+  paSizedCircle = presetArrangementSizedCricle()
+  paSpiralSpanCricle = presetArrangementSpiralSpanCricle();
+  paSpiralClusterCricle = presetArrangementSpiralClusterCricle();
+  paSpiralOverlappingCricle = presetArrangementSpiralOverlappingCricle();
+  //--- Circle / Random
   paRandom = presetArrangementRandom()
-  paGridCentralized = presetArrangementTowardsCenterGrid()
-  paCircle = presetArrangementCricle()
-  paCircleCentralized = presetArrangementCentralTowardsCricle();
-  pas = [paGridCentralized, paRandom, paCircle,paCircleCentralized,paGridCentralized]
+  pasClassical = [paTowardsCenterGrid, paRandom, paStandardCircle,paTest,paTowardsCenterGrid,paSizedCircle]
+  pasSpecial = [paRandom]
   //------------------Presets
-  srFractals = duplicate(paGridUpward, pfRhombus)
+  srFractals = duplicate(paUpwardGrid, pfRhombus)
   srArrangement = new Arrangement()
-  srArrangement = paCircle.copy()
-  //classifyAudio
-  classifyAudio();
+  // srArrangement = paSizedCircle.copy()
+  srArrangement = paTest.copy()
 }
+
 
 function classifyAudio() {
   sound.classify(gotResults);
@@ -91,7 +120,7 @@ function gotResults(error, results) {
   let confidence = results[0].confidence * 100; // confidence as percentage
   console.log("[label]", label, "[confidence]", confidence);
 
-  if (confidence > 50) {
+  if (confidence > 99) {
       if (label === "Shuffle" && !srIsTransmiting) {
           initiate();
       } else if (label === "Stop" && srIsTransmiting) {
