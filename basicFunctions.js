@@ -148,3 +148,14 @@ function checkArrangementEqual(stateA, stateB,tolerance=0.04) {
 	}
 	return dataEqual
 }
+
+function isMyNamesInTheKeywords(instance, arr2) {
+    const set1 = new Set(instance.name);  // Access the property from the instance
+    
+    for (const element of arr2) {
+      if (set1.has(element)) {
+        return true;
+      }
+    }
+    return false;
+  }

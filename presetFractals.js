@@ -8,7 +8,7 @@ Classical Fractals:
 
 function presetFractalTest(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "test"
+	presetFractal.name = ["test"]
 	presetFractal.shapes=
 	[
 		[
@@ -33,7 +33,7 @@ function presetFractalTest(){
 
 function presetFractalMoon(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "moon"
+	presetFractal.name = ["moon"]
 	presetFractal.shapes=
 	[
 		[
@@ -46,7 +46,7 @@ function presetFractalMoon(){
 
 function presetFractalArrowTriangle(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "triangle_arrow"
+	presetFractal.name = ["triangle","arrow"]
 	presetFractal.shapes=
 	[
 		[
@@ -64,7 +64,7 @@ function presetFractalArrowTriangle(){
 
 function presetFractalStandardTriangle(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "triangle_standard"
+	presetFractal.name = ["triangle","standard"]
 	presetFractal.shapes=
 	[
 		[
@@ -77,7 +77,7 @@ function presetFractalStandardTriangle(){
 }
 function presetFractalQuadrupleCircle(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "circle_4"
+	presetFractal.name = ["circle","4"]
 	presetFractal.shapes=
 	[
 		[
@@ -101,7 +101,7 @@ function presetFractalQuadrupleCircle(){
 
 function presetFractalStrokeWeightRhombus(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "rhombus_strokeweight"
+	presetFractal.name = ["rhombus","strokeweight"]
 	presetFractal.shapes=
 	[
 		[
@@ -129,7 +129,7 @@ function presetFractalStrokeWeightRhombus(){
 
 function presetFractalSimpleRhombus(){
 	let presetFractal = new Fractal();
-	presetFractal.name = "rhombus_simple"
+	presetFractal.name = ["rhombus","simple"]
 	presetFractal.shapes=
 	[
 		[
@@ -168,7 +168,7 @@ Special Fractals:
 
 function presetFractalSmile() {
 	let presetFractal = new Fractal(0,0,0,standardBorderDistance);//placeholders
-	presetFractal.name = "special_smile"
+	presetFractal.name = ["special","smile"]
 	presetFractal.shapes=
 	[
 		[
@@ -183,7 +183,7 @@ function presetFractalSmile() {
 
 function presetFractalDiagonalBox() {
 	let presetFractal = new Fractal();
-	presetFractal.name = "special_box"
+	presetFractal.name = ["special","box"]
 	presetFractal.shapes=
 	[
 		[
@@ -201,7 +201,7 @@ function presetFractalDiagonalBox() {
 
 function presetFractalA() {
 	let presetFractal = new Fractal();
-	presetFractal.name = "special_A"
+	presetFractal.name = ["special","A"]
 	presetFractal.shapes=
 	[
 		[
@@ -215,7 +215,7 @@ function presetFractalA() {
 
 function presetFractalQuestionMark() {
 	let presetFractal = new Fractal();
-	presetFractal.name = "special_question mark"
+	presetFractal.name = ["special","question mark"]
 	presetFractal.shapes=
 	[
 		[
@@ -232,7 +232,7 @@ function presetFractalQuestionMark() {
 
 function presetFractalCasual() {
 	let presetFractal = new Fractal();
-	presetFractal.name = "special_casual"
+	presetFractal.name = ["special","casual"]
 	presetFractal.shapes=
 	[
 		[

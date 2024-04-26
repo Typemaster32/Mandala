@@ -17,8 +17,8 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	x2 *= borderDistance
 	y2 *= borderDistance
 	// console.log(x1)
-	let toleranceDrawline=0.001
-	if(Math.abs(x1-x2)<=toleranceDrawline &&Math.abs(y1-y2)<=toleranceDrawline)return
+	let toleranceDrawline = 0.001
+	if (Math.abs(x1 - x2) <= toleranceDrawline && Math.abs(y1 - y2) <= toleranceDrawline) return
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);
 	} else if (lineObject.length === 5) { // Arc
@@ -167,7 +167,7 @@ function getLineInTransition(beginState, endState, percentage) {
 		}
 	}
 
-	
+
 	return transitionState
 }
 
@@ -252,14 +252,14 @@ function show(arrangement, fractals) {
 
 
 
-function terminate(){
+function terminate() {
 	/*
 	 "terminate" stands for stopping naturally or manually, corresponding to different situations:
-	 	1. naturally (Arrangement Overlapped)
+		  1. naturally (Arrangement Overlapped)
 	 */
 
-		 let filename = tgArrangement.name + "---" + tgFractalExample.name
-		 saveCanvas(filename,'png')
+	let filename = tgArrangement.name + "---" + tgFractalExample.name
+	saveCanvas(filename, 'png')
 
 	srIsTransmiting = false
 	srPercentage = 0
@@ -269,41 +269,79 @@ function terminate(){
 	orArrangement = tgArrangement.copy()
 	// srFractals = duplicate(srArrangement, tgFractalExample)	
 
-  }
+}
 
 
-  function initiate(color = null) {
-    console.log("[initiate]");
-    srIsTransmiting = true;
-    srPercentage = 0;
-    let targetArrangementIndex = 0;
+function initiate(color = null) {
+	console.log("[initiate]");
+	srIsTransmiting = true;
+	srPercentage = 0;
+	let targetArrangementIndex = 0;
 
-    while (checkArrangementEqual(pasClassical[targetArrangementIndex], srArrangement)) {
-        targetArrangementIndex = getRandomElement(pasClassical);
-    }
-    let targetFractalIndex = getRandomElement(pfsClassical);
+	while (checkArrangementEqual(pasClassical[targetArrangementIndex], srArrangement)) {
+		targetArrangementIndex = getRandomElement(pasClassical);
+	}
+	let targetFractalIndex = getRandomElement(pfsClassical);
 
-    let targetExampleFractal = pfsClassical[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
-    if (color !== null) {
-        console.log("setColor");
-        targetExampleFractal.updateColor(...color);  // Ensure color is an array [r, g, b]
-    }
+	let targetExampleFractal = pfsClassical[targetFractalIndex].copy(); // Assuming there's a method to copy fractal settings
+	if (color !== null) {
+		console.log("setColor");
+		targetExampleFractal.updateColor(...color);  // Ensure color is an array [r, g, b]
+	}
 
-    console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
-    testTransmitArrangement(pasClassical[targetArrangementIndex]);
-    testTransmitFractal(targetExampleFractal);
-    // console.log(targetExampleFractal.settings[0].stroke);
+	console.log("-----------------Transition Started", "Target Arrangement:", targetArrangementIndex, "Target Fractal:", targetFractalIndex);
+	testTransmitArrangement(pasClassical[targetArrangementIndex]);
+	testTransmitFractal(targetExampleFractal);
+	// console.log(targetExampleFractal.settings[0].stroke);
 
 }
 
 
 function setColor(exampleFractal, color) {
-    console.log("setColor");
-    let changedFractal = exampleFractal.copy();
-    for (let setting of changedFractal.settings) {
-        setting.stroke[0] = color[0]; // Red
-        setting.stroke[1] = color[1]; // Green
-        setting.stroke[2] = color[2]; // Blue
-    }
-    return changedFractal;
+	console.log("setColor");
+	let changedFractal = exampleFractal.copy();
+	for (let setting of changedFractal.settings) {
+		setting.stroke[0] = color[0]; // Red
+		setting.stroke[1] = color[1]; // Green
+		setting.stroke[2] = color[2]; // Blue
+	}
+	return changedFractal;
+}
+
+function initiateWithKeywords(keywords) {
+	/*
+	This function: 
+		takes input "keywords" (array)
+		uses global variable pas and pfs
+		initiates fractalExamples(random one from all qualified) and arrangement(random one from all qualified)
+	*/
+
+
+	console.log("[initiate with keywords]: ", keywords);
+	srIsTransmiting = true;
+	srPercentage = 0;
+	let qualifiedExampleFractals = []
+	let qualifiedArrangements = []
+	for (const element of pfsClassical) if (isMyNamesInTheKeywords(element, keywords)) qualifiedExampleFractals.push(element)
+
+	for (const element of pfsSpecial) if (isMyNamesInTheKeywords(element, keywords)) qualifiedExampleFractals.push(element)
+
+	for (const element of pasClassical) if (isMyNamesInTheKeywords(element, keywords)) qualifiedArrangements.push(element)
+
+	for (const element of pasSpecial) if (isMyNamesInTheKeywords(element, keywords)) qualifiedArrangements.push(element)
+
+	if (qualifiedExampleFractals.length > 0) {
+		let targetFractalIndex = getRandomElement(qualifiedExampleFractals);
+		let targetExampleFractal = qualifiedExampleFractals[targetFractalIndex].copy();
+		testTransmitFractal(targetExampleFractal);
+	} else {
+		console.log("No qualified fractals")
+	}
+
+	if (qualifiedArrangements.length > 0) {
+		let targetArrangementIndex = getRandomElement(qualifiedArrangements);
+		testTransmitArrangement(qualifiedArrangements[targetArrangementIndex]);
+	} else {
+		console.log("No qualified arrangements")
+	}
 }

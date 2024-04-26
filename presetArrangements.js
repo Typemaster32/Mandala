@@ -14,7 +14,7 @@ There are the Classical (simplest) arrangements:
 function presetArrangementTest(){
 	let presetArrangement = new Arrangement();
 	let longerside = max(width,height)
-	presetArrangement.name = "test"
+	presetArrangement.name = ["test"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=longerside/CanvasDivision * (j+0.5);
@@ -33,7 +33,7 @@ function presetArrangementTest(){
 function presetArrangementChessboardGrid(){
 	let presetArrangement = new Arrangement();
 	let longerside = max(width,height)
-	presetArrangement.name = "grid_chessboard"
+	presetArrangement.name = ["grid","chessboard"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=longerside/CanvasDivision * (j+0.5);
@@ -54,7 +54,7 @@ function presetArrangementFulfillGrid(){
 	// good for moon
 	let presetArrangement = new Arrangement();
 	let longerside = max(width,height)
-	presetArrangement.name = "grid_fulfill"
+	presetArrangement.name = ["grid","fulfill"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=longerside/CanvasDivision * (j+0.5);
@@ -70,7 +70,7 @@ function presetArrangementLooseDiagonalFrameGrid(){
 	let presetArrangement = new Arrangement();
 	let longerside = max(width,height)
 
-	presetArrangement.name = "gird_disgonal_loose"
+	presetArrangement.name = ["gird","disgonal","loose"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=longerside/CanvasDivision * (j+0.33)*1.5;
@@ -85,7 +85,7 @@ function presetArrangementLooseDiagonalFrameGrid(){
 function presetArrangementDenseDiagonalFrameGrid(){
 	let presetArrangement = new Arrangement();
 	let longerside = max(width,height)
-	presetArrangement.name = "gird_disgonal_dense"
+	presetArrangement.name = ["gird","disgonal","dense"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=longerside/CanvasDivision * (j+0.5);
@@ -99,7 +99,7 @@ function presetArrangementDenseDiagonalFrameGrid(){
 
 function presetArrangementUpwardGrid(){ // This is also the default state.
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "gird_upward"
+	presetArrangement.name = ["gird","upward"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][2]=0;
@@ -111,7 +111,7 @@ function presetArrangementUpwardGrid(){ // This is also the default state.
 
 function presetArrangementTowardsCenterGrid(){
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "gird_towards center"
+	presetArrangement.name = ["gird","towards","center"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			let xoff = presetArrangement.data[i][j][0]-width/2
@@ -131,7 +131,7 @@ function presetArrangementStandardCricle(){
 	let diagonal = Math.sqrt(width*width+height*height)
 	let unitDistance = diagonal / CanvasDivision;
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "circle_standard"
+	presetArrangement.name = ["circle","standard"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			let xoff = Math.cos(unitAngle*j)*unitDistance*i
@@ -154,7 +154,7 @@ function presetArrangementSizedCricle(){
 	let unitAngle = PI*2 / CanvasDivision
 	let unitDistance = 10;
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "circle_sized"
+	presetArrangement.name = ["circle","sized"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		unitDistance*=1.5
 		for (let j = 0; j < CanvasDivision; j++) { 
@@ -179,7 +179,7 @@ function presetArrangementSpiralSpanCricle(){
 	let diagonal = Math.sqrt(width*width+height*height)
 	let unitDistance = diagonal / CanvasDivision;
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "circle_spiral_span"
+	presetArrangement.name = ["circle","spiral","span"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			let xoff = Math.cos(unitAngle*j)*unitDistance*(i+j/CanvasDivision)
@@ -199,7 +199,7 @@ function presetArrangementSpiralClusterCricle(){
 	let diagonal = Math.sqrt(width*width+height*height)
 	let unitDistance = diagonal / CanvasDivision;
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "circle_spiral_cluster"
+	presetArrangement.name =["circle","spiral","cluster"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			let xoff = Math.cos(unitAngle*j)*unitDistance*(i+j/CanvasDivision)*0.2
@@ -220,7 +220,7 @@ function presetArrangementSpiralOverlappingCricle(){
 	let diagonal = Math.sqrt(width*width+height*height)
 	let unitDistance = diagonal / CanvasDivision;
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "circle_spiral_overlapping"
+	presetArrangement.name = ["circle","spiral","overlapping"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			let xoff = Math.cos(unitAngle*j)*unitDistance*(i+j/CanvasDivision)*0.6
@@ -239,7 +239,7 @@ function presetArrangementSpiralOverlappingCricle(){
 
 function presetArrangementRandom(){
 	let presetArrangement = new Arrangement();
-	presetArrangement.name = "random_standard"
+	presetArrangement.name = ["random","standard"]
 	for (let i = 0; i < CanvasDivision; i++) {
 		for (let j = 0; j < CanvasDivision; j++) { 
 			presetArrangement.data[i][j][0]=random(width);
