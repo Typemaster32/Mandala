@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <style>
+      #button-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+      }
+      .custom-button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        background-color: #090909;
+        color: white;
+        border-radius: 50px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js"></script>
     <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
-
+    <script src="libraries/p5.speech.js"></script>
   </head>
   <body>
     <main>
+      <div id="button-container"></div>
     </main>
+    <script>
+      let keywords = ["blue", "circle", "expand", "cluster"];
+
+      function createButtonTest(text) {
+        if(text){const container = document.getElementById("button-container");
+        const button = document.createElement("div");
+        button.textContent = text;
+        keywords.push(text);
+
+        button.className = "custom-button";
+        container.appendChild(button);
+
+        // Check and adjust for overflow of buttons
+        checkAndAdjustOverflow();}
+      }
+
+      function checkAndAdjustOverflow() {
+        const container = document.getElementById("button-container");
+        while (container.scrollWidth > container.clientWidth) {
+          container.removeChild(container.firstChild);
+        }
+      }
+      // document.addEventListener("click", function (event) {
+      //   const randomText =
+      //     keywords[Math.floor(Math.random() * keywords.length)];
+      //     createButtonTest(randomText); // Generates button with random text
+      // });
+    </script>
     <script src="sketch.js"></script>
     <script src="fractal.js"></script>
     <script src="arrangement.js"></script>

@@ -17,7 +17,7 @@ function drawLine(lineObject, borderDistance, standardStrokeWeight = 1) {
 	x2 *= borderDistance
 	y2 *= borderDistance
 	// console.log(x1)
-	let toleranceDrawline = 0.001
+	let toleranceDrawline = 0.1
 	if (Math.abs(x1 - x2) <= toleranceDrawline && Math.abs(y1 - y2) <= toleranceDrawline) return
 	if (lineObject.length === 4) { // Straight line
 		line(x1, y1, x2, y2);

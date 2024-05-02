@@ -52,7 +52,6 @@ function presetFractalArrowTriangle(){
 		[
 			[0,-0.5,0.4,0.3,],
 			[0,-0.5,-0.4,0.3,],/* Hypotenuse */
-
 			[0,0.5,0.4,0.3,],
 			[0,0.5,-0.4,0.3,],/* Hypotenuse */
 			[0.4,0.3,-0.4,0.3,],
@@ -168,7 +167,7 @@ Special Fractals:
 
 function presetFractalSmile() {
 	let presetFractal = new Fractal(0,0,0,standardBorderDistance);//placeholders
-	presetFractal.name = ["special","smile"]
+	presetFractal.name = ["special","smile", "happy"]
 	presetFractal.shapes=
 	[
 		[

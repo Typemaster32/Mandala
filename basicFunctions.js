@@ -159,3 +159,72 @@ function isMyNamesInTheKeywords(instance, arr2) {
     }
     return false;
   }
+
+
+  function extractUniqueKeywords(objectsArray) {
+    return [...new Set(objectsArray.flatMap(obj => obj.name))];
+}
+
+
+
+function findDistinguishableColor(color1, color2) {
+    // Helper function to parse color input to RGB array
+    function parseColor(color) {
+        if (Array.isArray(color)) {
+            return color; // Already in [r, g, b] format
+        }
+        // Assume color is a string "rgb(r, g, b)"
+        let result = color.match(/\d+/g);
+        return result ? result.map(Number) : null;
+    }
+
+    color1 = parseColor(color1);
+    color2 = parseColor(color2);
+
+    if (!color1 || !color2 || color1.includes(NaN) || color2.includes(NaN)) {
+        console.error('Invalid color inputs:', color1, color2);
+        return null; // Return early if color parsing fails
+    }
+
+    // Calculate the average of two colors
+    const avgColor = [
+        (color1[0] + color2[0]) / 2,
+        (color1[1] + color2[1]) / 2,
+        (color1[2] + color2[2]) / 2
+    ];
+
+    // Calculate complementary color
+    const complementaryColor = avgColor.map(c => 255 - c);
+
+    // Function to calculate distance between two colors
+    function colorDistance(c1, c2) {
+        return Math.sqrt(
+            (c1[0] - c2[0]) ** 2 +
+            (c1[1] - c2[1]) ** 2 +
+            (c1[2] - c2[2]) ** 2
+        );
+    }
+
+    // Check if complementary color is sufficiently different from the original two
+    const distance1 = colorDistance(complementaryColor, color1);
+    const distance2 = colorDistance(complementaryColor, color2);
+
+    if (distance1 > 100 && distance2 > 100) {
+        return `rgb(${complementaryColor[0]}, ${complementaryColor[1]}, ${complementaryColor[2]})`;
+    }
+
+    // If the complementary color is not suitable, modify it further
+    const adjustedColor = complementaryColor.map(c => (c + 128) % 256);
+    return `rgb(${adjustedColor[0]}, ${adjustedColor[1]}, ${adjustedColor[2]})`;
+}
+
+// Example usage
+console.log(findDistinguishableColor("rgb(120, 200, 80)", "rgb(200, 50, 150)"));
+
+  
+  // Example usage
+//   const color1 = [120, 200, 80];
+//   const color2 = [200, 50, 150];
+//   const newColor = findDistinguishableColor(color1, color2);
+//   console.log('New Distinguishable Color:', newColor);
+  

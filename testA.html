@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customize Chrome Buttons</title>
+<style>
+  #button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+  .custom-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div id="button-container"></div>
+
+<script>
+  let keywords = ["blue","circle", "expand", "cluster"]
+  function createButton(text) {
+    const container = document.getElementById('button-container');
+    const button = document.createElement('div');
+    button.textContent = text;
+    keywords.push(text)
+    createButton(text);
+    button.className = 'custom-button';
+    container.appendChild(button);
+
+
+    // Check and adjust for overflow of buttons
+    checkAndAdjustOverflow();
+  }
+
+  function checkAndAdjustOverflow() {
+    const container = document.getElementById('button-container');
+    while (container.scrollWidth > container.clientWidth) {
+      container.removeChild(container.firstChild);
+    }
+  }
+
+  // Adding a document-wide click event listener that triggers button creation
+  document.addEventListener('click', function(event) {
+    const randomText = keywords[Math.floor(Math.random() * keywords.length)];
+    createButton(randomText); // Generates button with random text
+  });
+</script>
+</body>
+</html>
