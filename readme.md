@@ -16,7 +16,7 @@ https://typemaster32.github.io/Mandala/
 
 ### Check Our Sites
 * [Tammy(Soon Available)]
-* [This is Jiaqi Yi](whyjq.com)
+* [This is Jiaqi Yi](https://whyjq.com)
 * [_The Nature of Code_](https://natureofcode.com/)
 
 ## Images
@@ -47,4 +47,4 @@ Jiaqi: Yes, and we can have smooth transition between all shapes!
 * **If you find the code hard to read, consider plan B ↓↓↓**
 
 ### B. Give Us Some Inspirations!
-* Post your idea in the comments! It can be textual description, draft, image...**WHATEVER YOU LIKE! We appreciate all contributions!**
+* Post your idea in the [comments!](https://github.com/Typemaster32/Mandala/discussions/2) It can be textual description, draft, image...**WHATEVER YOU LIKE! We appreciate all contributions!**
