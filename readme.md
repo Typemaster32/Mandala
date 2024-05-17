@@ -7,8 +7,6 @@
 
 #### Click here:
 [Spring Show Version](https://typemaster32.github.io/Mandala/)
-#### Or copy link:
-https://typemaster32.github.io/Mandala/
 
 ### Introduction
 **2024 ITP Spring Show Project by Tammana Jain & Jiaqi Yi**
