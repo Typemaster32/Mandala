@@ -500,6 +500,8 @@ function keyPressed() {
     let filename = tgArrangement.name + "---" + tgFractalExample.name
     saveCanvas(filename, 'png')
   } else if (key === 'a' || key === 'A' || key === 'LEFT_ARROW' || key === 'LEFT_ARROW' || key === 'UP_ARROW' || key === 'DOWN_ARROW') {
+
+    active = true
     if (srIsTransmiting == false) {
       initiate();
     } else {
