@@ -10,6 +10,7 @@
 
 ### Introduction
 **2024 ITP Spring Show Project by Tammana Jain & Jiaqi Yi**
+
 **Course Project of _The Nature of Code_ by Daniel Shiffman**
 
 ### Check Our Sites
