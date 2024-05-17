@@ -40,6 +40,7 @@ class Arrangement {
 		* +-----------------------------------+
 		This layout is necessary for the rotating.
 		*/
+		this.name=["default"]
 		this.data = [];
 		const centerX = width / 2;
 		const centerY = height / 2;// Center of the canvas
@@ -67,19 +68,19 @@ class Arrangement {
 			2. Returns: This modify itself instead of return.
 		*/
 		// console.log(checkArrangementEqual(originArrangement, targetArrangement))
-		// if (checkArrangementEqual(srArrangement, targetArrangement)){
-		// 	console.log("Arrangement Overlapped")
-		// 	 terminate()
-		// 	}
+		if (checkArrangementEqual(srArrangement, targetArrangement)){
+			console.log("Arrangement Overlapped")
+			 terminate()
+			}
 
 		let origin = originArrangement.data
 		let target = targetArrangement.data
 		for (let i = 0; i < target.length; i++) {
 			for (let j = 0; j < target[0].length; j++) {
-				this.data[i][j][0] = map(percentage, 0, percentageCap, origin[i][j][0], target[i][j][0], true)
-				this.data[i][j][1] = map(percentage, 0, percentageCap, origin[i][j][1], target[i][j][1], true)
-				this.data[i][j][2] = map(percentage, 0, percentageCap, origin[i][j][2], target[i][j][2], true)
-				this.data[i][j][3] = map(percentage, 0, percentageCap, origin[i][j][3], target[i][j][3], true)
+				this.data[i][j][0] = customMap(percentage, 0, percentageCap, origin[i][j][0], target[i][j][0])
+				this.data[i][j][1] = customMap(percentage, 0, percentageCap, origin[i][j][1], target[i][j][1])
+				this.data[i][j][2] = customMap(percentage, 0, percentageCap, origin[i][j][2], target[i][j][2])
+				this.data[i][j][3] = customMap(percentage, 0, percentageCap, origin[i][j][3], target[i][j][3])
 			}
 		}
 	}
