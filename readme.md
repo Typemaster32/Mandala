@@ -32,13 +32,13 @@ Tammy: I think it would be great to have those wonderful patterns in the screens
 Jiaqi: Yes, and we can have smooth transition between all shapes!
 
 ### If You Want to Create a Pattern (guide of reading the source code):
-* **Understand: pattern = arrangement + fractals**
+* **Core Concept: pattern = arrangement + fractals**
 * arrangement handles "x,y,a,d" for every fractal: coordinate of the center points; angle of rotation; diameter.
 * fractals handles the exact shape of everything, pay attention to the _.shape_, which has the format of [[[x1,y1,x2,y2,angle]`/*line 1`*/,[x1,y1,x2,y2,angle]`/*line 2`*/]`/*shape 1`*/,[]`/*shape 2`*/]
 * remember x1,y1,x2,y2 are factors to "d"(diameter), so usually _x1,y1,x2,y2 ∈ [-0.5, 0.5]_. And we're using radian, so generally _angle ∈ [-PI, PI]_.
 * **If you find it hard to understand, consider plan B ↓↓↓**
 
-#### A. Do It Yourself
+### A. Do It Yourself
 * Go to presetArrangementTest(or presetFractalTest), copy it, and name it into something you like! This function returns an instance of the arrangement or fractal.
 * Modify the function with the guide above;
 * in _.name_, give it a value like ["alpha","beta"], which is the keyword you're going to call;
