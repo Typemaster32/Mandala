@@ -14,7 +14,7 @@
 **Course Project of _The Nature of Code_ by Daniel Shiffman**
 
 ### Check Our Sites
-* [Tammy(Soon Available)]
+* [Tammy](https://tamannajain.cargo.site/)
 * [This is Jiaqi Yi](https://whyjq.com)
 * [_The Nature of Code_](https://natureofcode.com/)
 
